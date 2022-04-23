@@ -15,6 +15,7 @@
         android:layout_height="170dp"
         android:layout_margin="5dp"
         android:background="#34B139"
+        app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#70F475"
             android:orientation="vertical">
 
             <ImageView
@@ -42,7 +44,7 @@
                 android:gravity="center"
                 android:text="Collection Title"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="18dp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
