@@ -8,17 +8,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyViewHolder>  {
 
 
     private Context mContext;
-    private List<Collection> mData;
+    private ArrayList<Collection> mData;
 
-    public RecyclerMainList(Context mContext, List<Collection> mData) {
+    public RecyclerMainList(Context mContext, ArrayList<Collection> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -26,9 +28,9 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        view = inflater.inflate(R.layout.item, parent,false);
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
+        //view = inflater.inflate(R.layout.item, parent,false);
 
         return new MyViewHolder(view);
     }
@@ -49,13 +51,13 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
 
         TextView card_title;
         ImageView card_image;
-
+        CardView cardView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             card_title = itemView.findViewById(R.id.textViewCollectionName);
             card_image = itemView.findViewById(R.id.imageViewCollection);
-
+            cardView = itemView.findViewById(R.id.cardViewItem);
         }
     }
 }
