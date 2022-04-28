@@ -19,4 +19,5 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="add_category">Create a new travel category to store your travel experiences</string>
+    <string name="add_item">Add new item to specific travel category.</string>
 </resources>

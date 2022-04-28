@@ -6,4 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".AddItemActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="409dp"
+                android:layout_height="150dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/image_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="409dp"
+                android:layout_height="510dp"
+                android:background="@drawable/rectangle_settings"
+                android:backgroundTint="#7FEA83"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="@string/add_item"
+                    android:textSize="22dp" />
+
+                <EditText
+                    android:id="@+id/editTextItemName"
+                    android:layout_width="300dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rectangle_settings"
+                    android:backgroundTint="#FFFFFF"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Item Name"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/editTextDescription"
+                    android:layout_width="300dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rectangle_settings"
+                    android:backgroundTint="#FFFFFF"
+                    android:ems="10"
+                    android:gravity="center_horizontal"
+                    android:hint="Description"
+                    android:inputType="textPersonName"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextDateAquired"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rectangle_settings"
+                    android:backgroundTint="#FFFFFF"
+                    android:ems="10"
+                    android:gravity="center_horizontal"
+                    android:hint="Date Aquisition"
+                    android:inputType="textPersonName" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    app:srcCompat="@drawable/ic_baseline_image_24" />
+
+                <Button
+                    android:id="@+id/buttonAddItem"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rectangle_settings"
+                    android:backgroundTint="#61BC65"
+                    android:minHeight="48dp"
+                    android:text="Add Item" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
