@@ -20,4 +20,6 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="add_category">Create a new travel category to store your travel experiences</string>
     <string name="add_item">Add new item to specific travel category.</string>
+    <string name="saving_tip">Keep track of your spending Set mini monthly goals Save Regularly</string>
+    <string name="Set_goal">Set a goal you want to track and push yourself with a deadline</string>
 </resources>
