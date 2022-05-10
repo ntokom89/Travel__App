@@ -11,10 +11,10 @@
     <LinearLayout
         android:id="@+id/linerLayoutAddCat"
         android:layout_width="409dp"
-        android:layout_height="370dp"
+        android:layout_height="400dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="45dp"
         android:background="@drawable/rectangle_settings"
         android:orientation="vertical"
         android:weightSum="4"
@@ -31,7 +31,7 @@
             android:textSize="22dp" />
 
         <EditText
-            android:id="@+id/editTextCollectionName"
+            android:id="@+id/editTextCategoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -83,5 +83,17 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/image_2" />
     </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="608dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_navigation_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
