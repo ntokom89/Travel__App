@@ -12,7 +12,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyViewHolder>  {
 
@@ -29,7 +28,7 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.Category_card,parent,false);
         //view = inflater.inflate(R.layout.item, parent,false);
 
         return new MyViewHolder(view);
@@ -55,7 +54,7 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            card_title = itemView.findViewById(R.id.textViewCollectionName);
+            card_title = itemView.findViewById(R.id.textViewCollectionTitle);
             card_image = itemView.findViewById(R.id.imageViewCollection);
             cardView = itemView.findViewById(R.id.cardViewItem);
         }

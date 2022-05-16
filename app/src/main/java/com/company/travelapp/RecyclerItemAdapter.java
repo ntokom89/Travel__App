@@ -38,7 +38,7 @@ public class RecyclerItemAdapter extends RecyclerView.Adapter<RecyclerItemAdapte
         holder.card_ItemTitle.setText(mData.get(position).getNameItem());
         holder.card_Description.setText(mData.get(position).getDescriptionItem());
         holder.card_Date.setText(mData.get(position).getDateAquiredItem());
-        holder.card_imageItem.setImageResource(mData.get(position).getImageCollection());
+        holder.card_imageItem.setImageResource(mData.get(position).getImageItem());
     }
 
     @Override

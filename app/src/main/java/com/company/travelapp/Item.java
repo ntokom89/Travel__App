@@ -5,14 +5,14 @@ public class Item {
     private String nameItem;
     private String descriptionItem;
     private String dateAquiredItem;
-    private int imageCollection;
+    private int imageItem;
 
-    public Item(String nameCollection, String nameItem, String descriptionItem, String dateAquiredItem, int imageCollection) {
+    public Item(String nameCollection, String nameItem, String descriptionItem, String dateAquiredItem, int imageItem) {
         this.nameCollection = nameCollection;
         this.nameItem = nameItem;
         this.descriptionItem = descriptionItem;
         this.dateAquiredItem = dateAquiredItem;
-        this.imageCollection = imageCollection;
+        this.imageItem = imageItem;
     }
 
     public String getNameCollection() {
@@ -47,11 +47,11 @@ public class Item {
         this.dateAquiredItem = dateAquiredItem;
     }
 
-    public int getImageCollection() {
-        return imageCollection;
+    public int getImageItem() {
+        return imageItem;
     }
 
-    public void setImageCollection(int imageCollection) {
-        this.imageCollection = imageCollection;
+    public void setImageItem(int imageItem) {
+        this.imageItem = imageItem;
     }
 }
