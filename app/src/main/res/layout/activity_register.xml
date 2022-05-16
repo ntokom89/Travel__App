@@ -38,7 +38,7 @@
 
     <EditText
         android:id="@+id/editTextEmailAddressRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="484dp"
         android:background="@drawable/square_shape"
@@ -55,7 +55,7 @@
 
     <EditText
         android:id="@+id/editTextTextPasswordRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="424dp"
         android:background="@drawable/square_shape"
@@ -74,7 +74,7 @@
         android:id="@+id/imageView15"
         android:layout_width="44dp"
         android:layout_height="45dp"
-        android:layout_marginStart="104dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="424dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -100,12 +100,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="18dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextUsernameRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="364dp"
         android:background="@drawable/square_shape"
@@ -137,7 +138,7 @@
         android:id="@+id/imageView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="364dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -147,7 +148,7 @@
         android:id="@+id/imageView16"
         android:layout_width="44dp"
         android:layout_height="45dp"
-        android:layout_marginStart="104dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="484dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

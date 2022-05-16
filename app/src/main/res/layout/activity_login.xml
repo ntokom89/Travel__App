@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailLogin" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextEmailLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="376dp"
@@ -59,7 +59,7 @@
         android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:gravity="center"
-        android:hint=" Username"
+        android:hint="Email"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textSize="18sp"
@@ -75,7 +75,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="162dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextUsername"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailLogin"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9"
