@@ -11,13 +11,11 @@
 
     <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="404dp"
-        android:layout_height="270dp"
+        android:layout_width="423dp"
+        android:layout_height="278dp"
         android:layout_marginTop="4dp"
-        android:background="#81AACA"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image_paris" />

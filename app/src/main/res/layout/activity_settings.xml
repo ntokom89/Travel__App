@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="409dp"
-        android:layout_height="250dp"
+        android:layout_height="281dp"
         android:background="@drawable/image_tokyo"
         android:orientation="horizontal"
         android:padding="5dp"
@@ -20,7 +20,7 @@
 
         <ImageView
             android:id="@+id/imageViewProfile"
-            android:layout_width="wrap_content"
+            android:layout_width="33dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             app:srcCompat="@drawable/user_icon" />
@@ -121,6 +121,7 @@
         android:layout_marginBottom="99dp"
         android:backgroundTint="#F38B83"
         android:text="Sign Out"
+        android:textColor="#090909"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

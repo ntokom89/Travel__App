@@ -7,11 +7,27 @@
     android:background="#462188"
     tools:context=".LoginActivity">
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
+    <TextView
+        android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
+        android:text="Don't have a account? Sign Up"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintVertical_bias="0.685" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="268dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/square_shape"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
@@ -27,34 +43,21 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="160dp"
+        android:layout_width="125dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="92dp"
         android:backgroundTint="#FFFFFF"
-        android:text="Login"
+        android:text="Sign In"
         android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRegister" />
-
-    <TextView
-        android:id="@+id/textViewRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="32dp"
-        android:text="Don't have a account? Sign Up"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextEmailLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="376dp"
+        android:layout_width="272dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="368dp"
         android:background="@drawable/square_shape"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
@@ -73,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="162dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextEmailLogin"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,13 +86,12 @@
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="404dp"
-        android:layout_height="270dp"
+        android:layout_width="432dp"
+        android:layout_height="304dp"
         android:layout_marginTop="4dp"
-        android:background="#81AACA"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image_paris" />
@@ -99,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,8 +112,8 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
         android:text="SIGN IN"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
