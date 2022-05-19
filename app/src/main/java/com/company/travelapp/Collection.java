@@ -2,23 +2,33 @@ package com.company.travelapp;
 
 public class Collection {
 
-    private String nameCollection;
+    private String categoryID;
+    private String categoryName;
     private int imageCollection;
+    private String imageUri;
 
-    public Collection(String nameCollection, int imageCollection) {
-        this.nameCollection = nameCollection;
+    public Collection(String categoryName, int imageCollection) {
+        this.categoryName = categoryName;
         this.imageCollection = imageCollection;
     }
 
     public Collection() {
     }
 
-    public String getNameCollection() {
-        return nameCollection;
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public void setNameCollection(String nameCollection) {
-        this.nameCollection = nameCollection;
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public int getImageCollection() {
@@ -27,5 +37,13 @@ public class Collection {
 
     public void setImageCollection(int imageCollection) {
         this.imageCollection = imageCollection;
+    }
+
+    public String getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 }

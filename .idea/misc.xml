@@ -10,6 +10,7 @@
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.235" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/drawable/rectangle_settings.xml" value="0.2075" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/drawable/square_shape.xml" value="0.2075" />
+        <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/Category_card.xml" value="0.22530996152201796" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/activity_add_collection.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/activity_add_goal.xml" value="0.2" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/activity_add_item.xml" value="0.2" />
@@ -23,6 +24,7 @@
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/activity_settings.xml" value="0.4" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/activity_upload_image.xml" value="0.22530996152201796" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/card_category_item.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/category_card.xml" value="0.22530996152201796" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/fragment_select_category.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/fragment_settings.xml" value="0.24230072463768115" />
         <entry key="..\:/Users/ntoko/AndroidStudioProjects/TravelApp/app/src/main/res/layout/item.xml" value="0.27447916666666666" />

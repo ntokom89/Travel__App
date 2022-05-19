@@ -46,7 +46,7 @@
             android:textColorHint="#757575" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageViewAddCategoryImage"
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"

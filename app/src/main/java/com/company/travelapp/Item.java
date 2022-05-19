@@ -1,26 +1,39 @@
 package com.company.travelapp;
 
 public class Item {
-    private String nameCollection;
+    private String itemId;
+    private String categoryID;
     private String nameItem;
     private String descriptionItem;
     private String dateAquiredItem;
     private int imageItem;
+    private String imageUri;
 
-    public Item(String nameCollection, String nameItem, String descriptionItem, String dateAquiredItem, int imageItem) {
-        this.nameCollection = nameCollection;
+    public Item(String categoryID, String nameItem, String descriptionItem, String dateAquiredItem, int imageItem) {
+        this.categoryID = categoryID;
         this.nameItem = nameItem;
         this.descriptionItem = descriptionItem;
         this.dateAquiredItem = dateAquiredItem;
         this.imageItem = imageItem;
     }
 
-    public String getNameCollection() {
-        return nameCollection;
+    public Item() {
     }
 
-    public void setNameCollection(String nameCollection) {
-        this.nameCollection = nameCollection;
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public String getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 
     public String getNameItem() {
@@ -53,5 +66,13 @@ public class Item {
 
     public void setImageItem(int imageItem) {
         this.imageItem = imageItem;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 }

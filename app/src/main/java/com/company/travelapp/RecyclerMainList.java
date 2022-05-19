@@ -28,7 +28,7 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.Category_card,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_card,parent,false);
         //view = inflater.inflate(R.layout.item, parent,false);
 
         return new MyViewHolder(view);
@@ -37,7 +37,7 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.card_title.setText(mData.get(position).getNameCollection());
+        holder.card_title.setText(mData.get(position).getCategoryName());
         holder.card_image.setImageResource(mData.get(position).getImageCollection());
     }
 
