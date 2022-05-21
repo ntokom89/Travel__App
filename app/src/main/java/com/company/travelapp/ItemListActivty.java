@@ -41,41 +41,18 @@ public class ItemListActivty extends AppCompatActivity {
         categoryName = intent.getStringExtra("CategoryName");
 
 
-        recyclerView = findViewById(R.id.RecyclerViewItemList);
-        recyclerView.setHasFixedSize(true);
+        recyclerView = (RecyclerView) findViewById(R.id.RecyclerViewItemList);
         //adapter = new RecyclerMainList(this, listCollection);
-
+        loadData();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //loadData();
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listItem.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Item item = dataSnapshot.getValue(Item.class);
-                    if(item.getCategoryID() == categoryID){
-                        listItem.add(item);
-                    }
-                }
-                adapter = new RecyclerItemAdapter(ItemListActivty.this, listItem);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                //progress_circular.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ItemListActivty.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
-        //recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(ItemListActivty.this,AddItemActivity.class);
-                intent2.putExtra("categoryID",categoryID);
-                intent2.putExtra("categoryName",categoryName);
+                intent2.putExtra("CategoryID",categoryID);
+                intent2.putExtra("CategoryName",categoryName);
                 startActivity(intent2);
             }
         });
@@ -83,7 +60,27 @@ public class ItemListActivty extends AppCompatActivity {
     }
 
     public void loadData(){
+        /*
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listCollection.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Imagemodel imagemodel = dataSnapshot.getValue(Imagemodel.class);
+                    imagesList.add(imagemodel);
+                }
+                imageAdapter = new ImageAdapter(mContext,mActivity, (ArrayList<Imagemodel>) imagesList);
+                recyclerView.setAdapter(imageAdapter);
+                adapter.notifyDataSetChanged();
+                progress_circular.setVisibility(View.GONE);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
+         */
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -107,5 +104,6 @@ public class ItemListActivty extends AppCompatActivity {
             }
         });
     }
+
 
 }
