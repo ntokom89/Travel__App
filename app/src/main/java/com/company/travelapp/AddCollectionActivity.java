@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -30,6 +32,7 @@ public class AddCollectionActivity extends AppCompatActivity {
     Button buttonAdd;
     DatabaseReference databaseReference;
     StorageReference storageReference;
+    FirebaseAuth mAuth;
     FirebaseUser user;
     Uri imageUri;
 
@@ -42,10 +45,12 @@ public class AddCollectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_collection);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories");
+        storageReference = FirebaseStorage.getInstance().getReference("ImageCategory");
         collectionName = findViewById(R.id.editTextCategoryName);
-        collectionImage = findViewById(R.id.imageViewAddCategory);
+        collectionImage = findViewById(R.id.imageViewAddCategoryImage);
         buttonAdd = findViewById(R.id.buttonCreateCollection);
-
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +96,8 @@ public class AddCollectionActivity extends AppCompatActivity {
                          category.setCategoryName(name);
                          category.setImageUri(uriImage.toString());
                          String categoryID = databaseReference.push().getKey();
+                         String userID = user.getUid();
+                         category.setUserID(userID);
                          category.setCategoryID(categoryID);
                          databaseReference.child(categoryID).setValue(category);
 

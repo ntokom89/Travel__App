@@ -8,9 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="220dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="419dp"
+        android:layout_height="207dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,9 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="212dp"
         android:text="Set a Goal"
-        android:textColor="#B18DF3"
+        android:textColor="#673AB7"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,23 +32,28 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="212dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="#AAB3E6"
         android:text="View goal progress"
+        android:textColor="#673AB7"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="370dp"
+        android:layout_width="410dp"
+        android:layout_height="377dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rectangle_settings"
-        android:backgroundTint="#A1D7EF"
+        android:backgroundTint="#AAB3E6"
         android:orientation="vertical"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textView8"
@@ -57,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/Set_goal"
+            android:textColor="#673AB7"
             android:textSize="19sp" />
 
         <MultiAutoCompleteTextView
@@ -86,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Goal Amount"
-            android:textColor="#EB9DF8"
+            android:textColor="#673AB7"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -108,21 +113,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/rectangle_settings"
-            android:backgroundTint="#1788E1"
+            android:backgroundTint="#3F51B5"
             android:text=" Submit your goal"
             android:textColor="#C9ABFF" />
 
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="630dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_navigation_bottom" />
 </androidx.constraintlayout.widget.ConstraintLayout>

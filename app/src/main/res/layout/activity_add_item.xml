@@ -6,111 +6,125 @@
     android:layout_height="match_parent"
     tools:context=".AddItemActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="428dp"
+        android:layout_height="143dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_item" />
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="445dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/rectangle_settings"
+        android:backgroundTint="#BDDC9A"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_margin="20dp"
+            android:text="@string/add_item"
+            android:textColor="#673AB7"
+            android:textSize="22dp" />
 
-            <LinearLayout
-                android:layout_width="409dp"
-                android:layout_height="200dp"
-                android:orientation="vertical">
+        <EditText
+            android:id="@+id/editTextItemName"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rectangle_settings"
+            android:backgroundTint="#FFFFFF"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Item Name"
+            android:inputType="textPersonName" />
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/image_item" />
-            </LinearLayout>
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="308dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rectangle_settings"
+            android:backgroundTint="#FFFFFF"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="Description"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
 
-            <LinearLayout
-                android:layout_width="409dp"
-                android:layout_height="500dp"
-                android:background="@drawable/rectangle_settings"
-                android:backgroundTint="#7FEA83"
-                android:orientation="vertical">
+        <EditText
+            android:id="@+id/editTextDateAquired"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rectangle_settings"
+            android:backgroundTint="#FFFFFF"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="Date Aquisition"
+            android:inputType="textPersonName" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="@string/add_item"
-                    android:textSize="22dp" />
+        <ImageView
+            android:id="@+id/imageViewAddItem2"
+            android:layout_width="101dp"
+            android:layout_height="66dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            app:srcCompat="@drawable/ic_baseline_image_24" />
 
-                <EditText
-                    android:id="@+id/editTextItemName"
-                    android:layout_width="300dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/rectangle_settings"
-                    android:backgroundTint="#FFFFFF"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Item Name"
-                    android:inputType="textPersonName" />
+        <Button
+            android:id="@+id/buttonAddItem"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rectangle_settings"
+            android:backgroundTint="#8BC34A"
+            android:minHeight="48dp"
+            android:text="Add Item" />
 
-                <EditText
-                    android:id="@+id/editTextDescription"
-                    android:layout_width="300dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/rectangle_settings"
-                    android:backgroundTint="#FFFFFF"
-                    android:ems="10"
-                    android:gravity="center_horizontal"
-                    android:hint="Description"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+    </LinearLayout>
 
-                <EditText
-                    android:id="@+id/editTextDateAquired"
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/rectangle_settings"
-                    android:backgroundTint="#FFFFFF"
-                    android:ems="10"
-                    android:gravity="center_horizontal"
-                    android:hint="Date Aquisition"
-                    android:inputType="textPersonName" />
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:text="Add a new item"
+        android:textColor="#673AB7"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
-                <ImageView
-                    android:id="@+id/imageViewAddItem2"
-                    android:layout_width="200dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="20dp"
-                    app:srcCompat="@drawable/ic_baseline_image_24" />
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:backgroundTint="#BDDC9A"
+        android:text="View item list"
+        android:textColor="#673AB7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
-                <Button
-                    android:id="@+id/buttonAddItem"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/rectangle_settings"
-                    android:backgroundTint="#61BC65"
-                    android:minHeight="48dp"
-                    android:text="Add Item" />
-
-            </LinearLayout>
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:menu="@menu/menu_navigation_bottom" />
-        </LinearLayout>
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

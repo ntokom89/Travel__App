@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -30,7 +31,7 @@ public class AddItemActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     StorageReference storageReference;
     Uri imageUri;
-
+    String categoryID;
     Collection category;
 
     @Override
@@ -38,11 +39,17 @@ public class AddItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Items");
+        storageReference = FirebaseStorage.getInstance().getReference("imageItem");
         itemName = findViewById(R.id.editTextItemName);
         itemDescription = findViewById(R.id.editTextDescription);
         itemDateAquired = findViewById(R.id.editTextDateAquired);
         imageView = findViewById(R.id.imageViewAddItem2);
         buttonAdd = findViewById(R.id.buttonAddItem);
+
+        Intent intent = getIntent();
+        categoryID = intent.getStringExtra("CategoryID");
+
+
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,14 +86,14 @@ public class AddItemActivity extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
 
                         Item item = new Item();
-                        item.setCategoryID(name);
+                        item.setCategoryID(categoryID);
                         item.setNameItem(name);
                         item.setDescriptionItem(Description);
                         item.setDateAquiredItem(dateAquired);
                         item.setImageUri(uriImage.toString());
                         String ItemID = databaseReference.push().getKey();
                         item.setItemId(ItemID);
-                        databaseReference.child(ItemID).setValue(category);
+                        databaseReference.child(ItemID).setValue(item);
 
 
                     }
