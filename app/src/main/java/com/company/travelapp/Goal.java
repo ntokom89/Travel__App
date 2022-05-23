@@ -3,6 +3,7 @@ package com.company.travelapp;
 public class Goal {
 
     private String goalID;
+    private String goalName;
     private String goalDescription;
     private int goalTotalAmount;
     private int goalCurrentAmount;
@@ -25,6 +26,14 @@ public class Goal {
 
     public void setGoalID(String goalID) {
         this.goalID = goalID;
+    }
+
+    public String getGoalName() {
+        return goalName;
+    }
+
+    public void setGoalName(String goalName) {
+        this.goalName = goalName;
     }
 
     public String getGoalDescription() {
