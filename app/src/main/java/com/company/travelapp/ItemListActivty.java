@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -41,11 +42,11 @@ public class ItemListActivty extends AppCompatActivity {
         categoryName = intent.getStringExtra("CategoryName");
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.RecyclerViewItemList);
+        recyclerView =  findViewById(R.id.RecyclerViewItemList);
         //adapter = new RecyclerMainList(this, listCollection);
         loadData();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
 
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,16 +82,17 @@ public class ItemListActivty extends AppCompatActivity {
         });
 
          */
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        Query databaseQuery = databaseReference.orderByChild("categoryID").equalTo(categoryID);
+        databaseQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listItem.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Item item = dataSnapshot.getValue(Item.class);
-                    if(item.getCategoryID() == categoryID){
+                    //String CategoryIDKey = item.getCategoryID();
+
                         listItem.add(item);
-                    }
+
                 }
                 adapter = new RecyclerItemAdapter(ItemListActivty.this, listItem);
                 recyclerView.setAdapter(adapter);
@@ -100,7 +102,7 @@ public class ItemListActivty extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ItemListActivty.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ItemListActivty.this,"Database reading failed",Toast.LENGTH_LONG).show();
             }
         });
     }

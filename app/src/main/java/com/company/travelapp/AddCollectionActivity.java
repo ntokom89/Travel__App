@@ -92,9 +92,10 @@ public class AddCollectionActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
 
+
                          Collection category = new Collection();
                          category.setCategoryName(name);
-                         category.setImageUri(uriImage.toString());
+                         category.setImageUri(uri.toString());
                          String categoryID = databaseReference.push().getKey();
                          String userID = user.getUid();
                          category.setUserID(userID);

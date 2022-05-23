@@ -32,24 +32,13 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories");
         listCollection = new ArrayList<>();
-        //listCollection.add(new Collection("Historical Places",R.drawable.historical));
-        //listCollection.add(new Collection("Leisure Places",R.drawable.leisure_place));
-        //listCollection.add(new Collection("Adventure Places",R.drawable.adventure_place));
-
-        //FirebaseRecyclerOptions<Collection> options
-        //        = new FirebaseRecyclerOptions.Builder<Collection>()
-       //         .setQuery(databaseReference, Collection.class)
-        //        .build();
-
-
          recyclerView = (RecyclerView) findViewById(R.id.reyclerViewCategory);
-         //adapter = new RecyclerMainList(this, listCollection);
-        loadData();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        loadData();
+
+
         recyclerView.setAdapter(adapter);
-        //recyclerView.setAdapter(adapter);
-       // adapter.setClickListener(CategoryListActivity.this);
+
     }
 
 

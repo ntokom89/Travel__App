@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="419dp"
-        android:layout_height="207dp"
+        android:layout_height="180dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="192dp"
         android:text="Set a Goal"
         android:textColor="#673AB7"
         android:textSize="22sp"
@@ -32,7 +32,7 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="192dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#AAB3E6"
         android:text="View goal progress"
@@ -44,8 +44,7 @@
 
     <LinearLayout
         android:layout_width="410dp"
-        android:layout_height="377dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="420dp"
         android:background="@drawable/rectangle_settings"
         android:backgroundTint="#AAB3E6"
         android:orientation="vertical"
@@ -64,8 +63,8 @@
             android:textColor="#673AB7"
             android:textSize="19sp" />
 
-        <MultiAutoCompleteTextView
-            android:id="@+id/multiAutoCompleteTextView"
+        <EditText
+            android:id="@+id/editTextCategoryNameGoal"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
@@ -74,7 +73,18 @@
             android:hint="Category name" />
 
         <EditText
-            android:id="@+id/editTextDeadline"
+            android:id="@+id/editTextGoalName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/square_shape"
+            android:backgroundTint="#FFFFFF"
+            android:ems="10"
+            android:hint="Goal Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editTextGoalDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -114,6 +124,7 @@
             android:layout_gravity="center"
             android:background="@drawable/rectangle_settings"
             android:backgroundTint="#3F51B5"
+            android:minHeight="48dp"
             android:text=" Submit your goal"
             android:textColor="#C9ABFF" />
 

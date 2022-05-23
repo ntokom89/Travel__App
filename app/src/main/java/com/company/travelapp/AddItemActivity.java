@@ -90,7 +90,7 @@ public class AddItemActivity extends AppCompatActivity {
                         item.setNameItem(name);
                         item.setDescriptionItem(Description);
                         item.setDateAquiredItem(dateAquired);
-                        item.setImageUri(uriImage.toString());
+                        item.setImageUri(uri.toString());
                         String ItemID = databaseReference.push().getKey();
                         item.setItemId(ItemID);
                         databaseReference.child(ItemID).setValue(item);

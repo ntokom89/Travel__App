@@ -57,9 +57,9 @@ public class RecyclerItemAdapter extends RecyclerView.Adapter<RecyclerItemAdapte
             super(itemView);
             card_ItemTitle = itemView.findViewById(R.id.textViewItemTitle);
             card_Description = itemView.findViewById(R.id.textViewDescription);
-            card_Date = itemView.findViewById(R.id.editTextDateAquired);
+            card_Date = itemView.findViewById(R.id.textViewDateOfAquiresition);
             cardViewItem = itemView.findViewById(R.id.cardViewItem);
-            card_imageItem = itemView.findViewById(R.id.cardViewItem);
+            card_imageItem = itemView.findViewById(R.id.imageViewItem);
         }
     }
 }
