@@ -107,26 +107,38 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
         Collection category = listCollection.get(position);
         String categoryID = category.getCategoryID();
 
+        Goal goal = new Goal();
         Query query = referenceGoal.orderByChild("categoryID").equalTo(categoryID);
+        //nt totalPercentage = 0;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                double totalPercentage = 0;
+                Double totalBudget;
+                Double currentAmount;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Long totalBudget = dataSnapshot.child("goalTotalAmount").getValue(Long.class);
-                    Long currentAmount = dataSnapshot.child("goalCurrentAmount").getValue(Long.class);
+                    //Long totalBudget = dataSnapshot.child("goalTotalAmount").getValue(Long.class);
+                    //Long currentAmount = dataSnapshot.child("goalCurrentAmount").getValue(Long.class);
+                     totalBudget = dataSnapshot.child("goalTotalAmount").getValue(Double.class);
+                     currentAmount = dataSnapshot.child("goalCurrentAmount").getValue(Double.class);
                     String description = dataSnapshot.child("goalDescription").getValue(String.class);
-                    //String categoryID =dataSnapshot.child("categoryID").getValue(String.class);
-                    textViewBudget.setText("R " + totalBudget);
+                    //String categoryIDGoal =  dataSnapshot.child("goalDescription").getValue(String.class);
                     textViewGoalDescription.setText(description);
-                    Long totalPercentage = (currentAmount/totalBudget)*100;
+
+                    totalPercentage += (currentAmount/totalBudget)*100;
+                    textViewBudget.setText("R " + totalBudget);
+                    //String categoryID =dataSnapshot.child("categoryID").getValue(String.class);
+                    //totalPercentage =  ((int)(currentAmount/totalBudget))*100;
+                    //long percentage = (currentAmount/totalBudget)*100;
                     textViewProgress.setText(totalPercentage +"%");
-                    int progressBarPercentage = totalPercentage.intValue();
-                    progressBar.setProgress(progressBarPercentage);
+                    //nt progressBarPercentage = totalPercentage.intValue();
+                    progressBar.setMax(100);
+                    progressBar.setProgress((int)totalPercentage);
+
+                    //int testPercentage = 50;
                     Toast.makeText(GoalActivity.this,"Goal description downloaded",Toast.LENGTH_LONG).show();
 
                 }
-
             }
 
             @Override
@@ -134,6 +146,10 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
                 Toast.makeText(GoalActivity.this,"Goal description failed to download",Toast.LENGTH_LONG).show();
             }
         });
+
+
+        // test
+
 
         //i.putExtra("image", city.imageName);
         //Log.i("hello", city.name);
