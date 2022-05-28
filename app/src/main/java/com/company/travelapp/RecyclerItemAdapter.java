@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class RecyclerItemAdapter extends RecyclerView.Adapter<RecyclerItemAdapter.MyViewHolder>{
@@ -38,7 +40,7 @@ public class RecyclerItemAdapter extends RecyclerView.Adapter<RecyclerItemAdapte
         holder.card_ItemTitle.setText(mData.get(position).getNameItem());
         holder.card_Description.setText(mData.get(position).getDescriptionItem());
         holder.card_Date.setText(mData.get(position).getDateAquiredItem());
-        holder.card_imageItem.setImageResource(mData.get(position).getImageItem());
+        Picasso.get().load(mData.get(position).getImageUri()).into(holder.card_imageItem);
     }
 
     @Override

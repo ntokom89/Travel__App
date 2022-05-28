@@ -43,27 +43,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
 
 
     public void loadData(){
-        /*
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listCollection.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Imagemodel imagemodel = dataSnapshot.getValue(Imagemodel.class);
-                    imagesList.add(imagemodel);
-                }
-                imageAdapter = new ImageAdapter(mContext,mActivity, (ArrayList<Imagemodel>) imagesList);
-                recyclerView.setAdapter(imageAdapter);
-                adapter.notifyDataSetChanged();
-                progress_circular.setVisibility(View.GONE);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
 
-         */
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -75,9 +55,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
                 }
                 adapter = new RecyclerMainList(CategoryListActivity.this, listCollection, CategoryListActivity.this);
                 recyclerView.setAdapter(adapter);
-                //adapter.setClickListener(CategoryListActivity.this);
-                //adapter.notifyDataSetChanged();
-                //progress_circular.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -98,17 +76,5 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
         startActivity(i);
     }
 
-    /*@Override
-    public void onItemClick(View view, int position) {
-        Collection category = listCollection.get(position);
-        Intent i = new Intent(CategoryListActivity.this, ItemListActivty.class);
-        i.putExtra("CategoryID", category.getCategoryID());
-        i.putExtra("CategoryName", category.getCategoryName());
-        //i.putExtra("image", city.imageName);
-        //Log.i("hello", city.name);
-        startActivity(i);
 
-    }
-
-     */
 }
