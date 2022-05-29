@@ -86,34 +86,5 @@ public class AddGoalActivity extends AppCompatActivity {
         });
     }
 
-    private void addToFirebase(String description, int totalAmount, String goalName, String categoryID) {
-        //databaseReference = FirebaseDatabase.getInstance().getReference("Goals");
-        Goal goalBase = new Goal();
-        goalBase.setGoalName(goalName);
-        goalBase.setCategoryID(categoryID);
-        goalBase.setGoalDescription(description);
-        goalBase.setGoalTotalAmount(totalAmount);
-        goalBase.setGoalCurrentAmount(0);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                //databaseReference.setValue(email);
-                String goalID = databaseReference.push().getKey();
-                goalBase.setGoalID(goalID);
-                databaseReference.child(goalBase.getGoalID()).setValue(goalBase);
-                //databaseReference.child("password").setValue(password);
-                Toast.makeText(AddGoalActivity.this,"Goal data added to database ",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(AddGoalActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddGoalActivity.this,"Database error",Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
 }

@@ -51,7 +51,7 @@
 
         <ImageView
             android:id="@+id/imageViewAddCategoryImage"
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="75dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"

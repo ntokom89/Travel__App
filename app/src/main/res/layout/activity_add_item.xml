@@ -10,15 +10,15 @@
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="428dp"
-        android:layout_height="143dp"
+        android:layout_height="120dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image_item" />
 
     <LinearLayout
-        android:layout_width="400dp"
-        android:layout_height="445dp"
+        android:layout_width="411dp"
+        android:layout_height="500dp"
         android:layout_marginTop="56dp"
         android:background="@drawable/rectangle_settings"
         android:backgroundTint="#BDDC9A"
@@ -44,7 +44,7 @@
             android:layout_width="300dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/rectangle_settings"
             android:backgroundTint="#FFFFFF"
             android:ems="10"
@@ -52,12 +52,27 @@
             android:hint="Item Name"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:id="@+id/textViewDialogChoice"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@android:drawable/editbox_background"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="Select Category Type"
+            android:padding="12dp" />
+
         <EditText
             android:id="@+id/editTextDescription"
             android:layout_width="308dp"
-            android:layout_height="58dp"
+            android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/rectangle_settings"
             android:backgroundTint="#FFFFFF"
             android:ems="10"
@@ -71,7 +86,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/rectangle_settings"
             android:backgroundTint="#FFFFFF"
             android:ems="10"
@@ -81,10 +96,10 @@
 
         <ImageView
             android:id="@+id/imageViewAddItem2"
-            android:layout_width="101dp"
-            android:layout_height="66dp"
+            android:layout_width="140dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             app:srcCompat="@drawable/ic_baseline_image_24" />
 
         <Button
@@ -103,13 +118,13 @@
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="128dp"
         android:text="Add a new item"
         android:textColor="#673AB7"
         android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
@@ -117,7 +132,7 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="120dp"
         android:backgroundTint="#BDDC9A"
         android:text="View item list"
         android:textColor="#673AB7"

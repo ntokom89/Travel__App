@@ -48,14 +48,26 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarRegister);
         login = findViewById(R.id.textViewSignIn);
 
+        //A OnClick method when the butoonRegister is clicked on
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                createAccount(email.getText().toString(),password.getText().toString(),username.getText().toString());
+                //if variables shown are not null then implement create account method
+                if (email != null && password != null && username != null) {
+                    createAccount(email.getText().toString(),password.getText().toString(),username.getText().toString());
+                }else if(email == null && password != null && username != null) {
+                    Toast.makeText(RegisterActivity.this,"Please enter email",Toast.LENGTH_LONG).show();
+                }else if(email != null && password == null && username != null){
+                    Toast.makeText(RegisterActivity.this,"Please enter password",Toast.LENGTH_LONG).show();
+                }else if(email != null && password != null && username == null){
+                    Toast.makeText(RegisterActivity.this,"Please enter username",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(RegisterActivity.this,"Please the details",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
+        //A onClick method for login that takes you to the login activity
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,27 +82,29 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    //A method to create a user account with email and password along with adding them to Firebase
     private void createAccount(String email, String password, String username) {
 
+        //Set user email,password and username
         user.setEmail(email);
         user.setPassword(password);
         user.setUsername(username);
-
-
+        //Method to create the user on Firebase with email and password
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    //Get current user and implement addToFirebase method with user and declare a intent and start it.
                     FirebaseUser userFirebase = mAuth.getCurrentUser();
                     Toast.makeText(RegisterActivity.this,"User Created",Toast.LENGTH_LONG).show();
                     addToFirebase(user);
                     Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                     startActivity(intent);
-                    updateUI(userFirebase);
+
 
                 }else{
                     Toast.makeText(RegisterActivity.this,"Registration Unsuccessful",Toast.LENGTH_LONG).show();
-                    updateUI(null);
+
                 }
             }
         });
@@ -99,9 +113,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(FirebaseUser userFirebase) {
-    }
 
+
+    //Method to add the user to Firebase database
     private void addToFirebase(User user) {
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
         databaseReference.addValueEventListener(new ValueEventListener() {

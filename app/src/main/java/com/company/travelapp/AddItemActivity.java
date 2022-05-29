@@ -27,12 +27,16 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -42,47 +46,60 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity {
 
     EditText itemName, itemDescription, itemDateAquired;
     ImageView imageView;
+    TextView categoryTextView;
     Button buttonAdd;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseCategory;
     StorageReference storageReference;
     Uri imageUri;
     String categoryID;
     Collection category;
     ActivityResultLauncher<Intent> activityResultLauncher;
     ActivityResultLauncher<Intent> activityResultLauncher2;
+    ArrayList<Collection> listCollection;
     protected static final int CAMERA_REQUEST_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        //Declaration section
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Items");
         storageReference = FirebaseStorage.getInstance().getReference("imageItem");
+        databaseCategory = FirebaseDatabase.getInstance().getReference().child("Categories");
         itemName = findViewById(R.id.editTextItemName);
         itemDescription = findViewById(R.id.editTextDescription);
         itemDateAquired = findViewById(R.id.editTextDateAquired);
         imageView = findViewById(R.id.imageViewAddItem2);
         buttonAdd = findViewById(R.id.buttonAddItem);
+        categoryTextView = findViewById(R.id.textViewDialogChoice);
+        listCollection = new ArrayList<>();
+        //Intent intent = getIntent();
+        //categoryID = intent.getStringExtra("CategoryID");
+        //Implement method
+        loadDataCategory();
 
-        Intent intent = getIntent();
-        categoryID = intent.getStringExtra("CategoryID");
 
-
-
+        //Method set when buttonAdd is clicked on
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //If imageUri is not null
                 if(imageUri != null){
-                    if(itemName != null && itemDescription != null && itemDescription != null){
+                    //if other variables are not null
+                    if(itemName != null && itemDescription != null && itemDescription != null && categoryID != null){
                         addItemToFirebase(itemName.getText().toString(), itemDescription.getText().toString()
                                 ,itemDateAquired.getText().toString(),imageUri);
-                        Intent intent = new Intent(AddItemActivity.this,ItemListActivty.class);
+                        Intent intent = new Intent(AddItemActivity.this,CategoryListActivity.class);
                         startActivity(intent);
+
                     }else{
                         Toast.makeText(AddItemActivity.this,"Please enter all information required.", Toast.LENGTH_LONG).show();
                     }
@@ -92,6 +109,32 @@ public class AddItemActivity extends AppCompatActivity {
                 }
             }
         });
+
+        categoryTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> listOfCategories = new ArrayList<>();
+                 for(Collection category : listCollection){
+                     String categoryName = category.getCategoryName();
+                     listOfCategories.add(categoryName);
+                 }
+                 CharSequence[] cs = listOfCategories.toArray(new CharSequence[listOfCategories.size()]);
+                 AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(AddItemActivity.this);
+                 myAlertDialog.setTitle("Choose a category");
+                 myAlertDialog.setSingleChoiceItems(cs, -1, new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+
+                         Collection categoryC = listCollection.get(which);
+                         categoryID = categoryC.getCategoryID();
+                         categoryTextView.setText(categoryC.getCategoryName());
+                     }
+                 });
+
+                 myAlertDialog.show();
+            }
+        });
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,5 +283,26 @@ public class AddItemActivity extends AppCompatActivity {
         // Save a file: path for use with ACTION_VIEW intents
 
         return uri;
+    }
+
+    public void loadDataCategory(){
+
+
+        databaseCategory.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listCollection.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Collection category = dataSnapshot.getValue(Collection.class);
+                    listCollection.add(category);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddItemActivity.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

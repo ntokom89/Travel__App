@@ -78,6 +78,7 @@ public class AddCollectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_collection);
+        //Declaration section
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories");
         storageReference = FirebaseStorage.getInstance().getReference("ImageCategory");
         collectionName = findViewById(R.id.editTextCategoryName);
@@ -85,21 +86,30 @@ public class AddCollectionActivity extends AppCompatActivity {
         buttonAdd = findViewById(R.id.buttonCreateCollection);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+
+        //Method that is implemented when the buttonAdd is clicked
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
              if(imageUri != null){
-                 addCollectionToFirebase(collectionName.getText().toString(),imageUri);
-                 Intent intent = new Intent(AddCollectionActivity.this,MainActivity.class);
-                 startActivity(intent);
+                 if(collectionName != null){
+                     //Implement this method
+                     addCollectionToFirebase(collectionName.getText().toString(),imageUri);
+                     //Declare a new intent and start the activity with the intent.
+                     Intent intent = new Intent(AddCollectionActivity.this,MainActivity.class);
+                     startActivity(intent);
+                 }else{
+                     Toast.makeText(AddCollectionActivity.this,"Please enter category name", Toast.LENGTH_LONG).show();
+                 }
 
              }else{
                  Toast.makeText(AddCollectionActivity.this,"Please select image", Toast.LENGTH_LONG).show();
              }
             }
         });
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
+
+
+        //A onClick method for image where you can select either to take image from camera or from gallery
         collectionImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +154,7 @@ public class AddCollectionActivity extends AppCompatActivity {
             }
         });
 
+        //Activity result launcher that gets data from Bitmap result and implements saveImage method to get uri of the image
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -161,17 +172,11 @@ public class AddCollectionActivity extends AppCompatActivity {
 
             }
         });
-
+//Activity result launcher that gets data from  result to  get uri of the image
         activityResultLauncher2 = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-               // Bundle extras = result.getData().getExtras();
-               // Bitmap photo = (Bitmap) extras.get("data");
-                //WeakReference<Bitmap> result1 = new WeakReference<>(Bitmap.createScaledBitmap(
-                //        photo,photo.getHeight(),photo.getWidth(),false).copy(Bitmap.Config.RGB_565,true));
-                //Bitmap bm = result1.get();
-               // ByteArrayOutputStream out = new ByteArrayOutputStream();
-               // photo.compress(Bitmap.CompressFormat.JPEG,100,out);
+
                 imageUri = result.getData().getData();
                 collectionImage.setImageURI(imageUri);
             }
@@ -183,13 +188,17 @@ public class AddCollectionActivity extends AppCompatActivity {
      */
 
 
+    //A method to add the image and storage to Firebase storage and database.
     public void addCollectionToFirebase(String name, Uri uriImage){
 
+        //Get a file reference for storageReference
         StorageReference fileRef = storageReference.child(System.currentTimeMillis()+ "." + getFileExtension(uriImage));
+        //put file with the uri image from user into storage.
         fileRef.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                //A method to download the uri and upload the uri along with other data into database
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -198,12 +207,15 @@ public class AddCollectionActivity extends AppCompatActivity {
                          Collection category = new Collection();
                          category.setCategoryName(name);
                          category.setImageUri(uri.toString());
+                         //A categoryID with a randomised key that gets pushed.
                          String categoryID = databaseReference.push().getKey();
+                         //Get userID of the user.
                          String userID = user.getUid();
                          category.setUserID(userID);
                          category.setCategoryID(categoryID);
+                         //Set value of child to category
                          databaseReference.child(categoryID).setValue(category);
-
+                        Toast.makeText(AddCollectionActivity.this,"Upload of image and data successful",Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -213,55 +225,29 @@ public class AddCollectionActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(AddCollectionActivity.this,"Upload of image failed.",Toast.LENGTH_LONG).show();
+                Toast.makeText(AddCollectionActivity.this,"Upload of image and/or data failed.",Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    //method that returns a string with a file extension.
     private String  getFileExtension(Uri uriImage) {
+        //Declare and get contentResolver
         ContentResolver cr = getContentResolver();
+        //Get a singleton of the MimeTypeMap.
         MimeTypeMap mimeType = MimeTypeMap.getSingleton();
         return mimeType.getExtensionFromMimeType(cr.getType(uriImage));
     }
 
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_PICTURE && resultCode == RESULT_OK && data != null) {
 
 
-            imageUri = data.getData();
-            collectionImage.setImageURI(imageUri);
-        } else if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
-
-            File f = new File(Environment.getExternalStorageDirectory()
-                    .toString());
-            //Bundle extras = data.getExtras();
-           // Bitmap photo = (Bitmap) extras.get("data");
-
-            //String path = f.getAbsolutePath();
-            //imageUri.getPath(path);
-            //collectionImage.setImageURI(bitmap);
-            imageUri = data.getData();
-            //collectionImage.setImageURI(imageUri);
-            collectionImage.setImageURI(imageUri);
-
-        }
-    }
-
-        //super.onActivityResult(requestCode, resultCode, data);
-
-
-
-     */
-
-
+    //Method implemented when the permission is accepted.
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         if(requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
         {
+            //Declare a new intent and start the Intent
             Intent intent = new Intent(
                     MediaStore.ACTION_IMAGE_CAPTURE);
             activityResultLauncher.launch(intent);
@@ -272,6 +258,7 @@ public class AddCollectionActivity extends AppCompatActivity {
     }
 
 
+    //A method that will save the image that the user has taken with camera and return the uri of the image.
     private Uri saveImage(Bitmap image, Context context) {
         // Create an image file name
         File imageFolder = new File(context.getCacheDir(),"images");
@@ -280,9 +267,12 @@ public class AddCollectionActivity extends AppCompatActivity {
             imageFolder.mkdirs();
             File file = new File(imageFolder,"captured_image.jpg");
             FileOutputStream stream = new FileOutputStream(file);
+            //Compress the image taken
             image.compress(Bitmap.CompressFormat.JPEG,100,stream);
+            //flush and close the the FileOutputStream
             stream.flush();
             stream.close();
+            //Get uri from the FileProvider
             uri = FileProvider.getUriForFile(context.getApplicationContext(),"com.company.travelapp" + ".provider",file);
         }catch (FileNotFoundException e){
             e.printStackTrace();
@@ -290,8 +280,9 @@ public class AddCollectionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Save a file: path for use with ACTION_VIEW intents
 
+
+        //Return uri.
         return uri;
     }
 
