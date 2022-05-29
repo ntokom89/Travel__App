@@ -69,6 +69,8 @@ public class AddItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        //Declaration section
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Items");
         storageReference = FirebaseStorage.getInstance().getReference("imageItem");
         databaseCategory = FirebaseDatabase.getInstance().getReference().child("Categories");
@@ -81,15 +83,18 @@ public class AddItemActivity extends AppCompatActivity {
         listCollection = new ArrayList<>();
         //Intent intent = getIntent();
         //categoryID = intent.getStringExtra("CategoryID");
-
+        //Implement method
         loadDataCategory();
 
 
+        //Method set when buttonAdd is clicked on
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //If imageUri is not null
                 if(imageUri != null){
-                    if(itemName != null && itemDescription != null && itemDescription != null){
+                    //if other variables are not null
+                    if(itemName != null && itemDescription != null && itemDescription != null && categoryID != null){
                         addItemToFirebase(itemName.getText().toString(), itemDescription.getText().toString()
                                 ,itemDateAquired.getText().toString(),imageUri);
                         Intent intent = new Intent(AddItemActivity.this,CategoryListActivity.class);

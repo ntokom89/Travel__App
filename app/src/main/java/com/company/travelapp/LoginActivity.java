@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //Declarations
         mAuth = FirebaseAuth.getInstance();
         password = findViewById(R.id.editTextTextPassword);
         email = findViewById(R.id.editTextEmailLogin);
@@ -41,7 +42,16 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signInWithAccount(email.getText().toString(), password.getText().toString());
+                if (email != null && password != null) {
+                    signInWithAccount(email.getText().toString(), password.getText().toString());
+                }else if(email == null && password != null) {
+                    Toast.makeText(LoginActivity.this,"Please enter email",Toast.LENGTH_LONG).show();
+                }else if(email != null && password == null){
+                    Toast.makeText(LoginActivity.this,"Please enter password",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(LoginActivity.this,"Please enter Details",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

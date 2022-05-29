@@ -30,9 +30,13 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
 
+        //Declaration of databaseReference referring to child Categories
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories");
+        //Declare list of categories
         listCollection = new ArrayList<>();
+        //Declare recyclerview
          recyclerView = (RecyclerView) findViewById(R.id.reyclerViewCategory);
+         //Set the layout of the recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadData();
 
@@ -41,18 +45,23 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
 
     }
 
-
+   //Method to load the data from categories child node and add the list of them into a list which will be used on the adapter.
     public void loadData(){
 
 
+        //database to read data
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //clear the list
                 listCollection.clear();
+                //For each dataSnapshot  in the children of categories.
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    //Get the category and add it to a list
                     Collection category = dataSnapshot.getValue(Collection.class);
                     listCollection.add(category);
                 }
+                //declare the adapter.
                 adapter = new RecyclerMainList(CategoryListActivity.this, listCollection, CategoryListActivity.this);
                 recyclerView.setAdapter(adapter);
 
@@ -60,19 +69,24 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                //Toast if the reading of data fails
                 Toast.makeText(CategoryListActivity.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //Method that implemeneted when a item in a recyclerview is clicked on.
     @Override
     public void onItemClick(View view, int position) {
+        //Create collection category to get a category at postion where the item is clicked.
         Collection category = listCollection.get(position);
+        //New Intent
         Intent i = new Intent(CategoryListActivity.this, ItemListActivty.class);
+        //Carry the following values with their names to the ItemListActivity.
         i.putExtra("CategoryID", category.getCategoryID());
         i.putExtra("CategoryName", category.getCategoryName());
-        //i.putExtra("image", city.imageName);
-        //Log.i("hello", city.name);
+
+        //Start the activity
         startActivity(i);
     }
 
