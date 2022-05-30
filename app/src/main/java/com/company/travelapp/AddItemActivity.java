@@ -64,6 +64,7 @@ public class AddItemActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> activityResultLauncher2;
     ArrayList<Collection> listCollection;
     protected static final int CAMERA_REQUEST_CODE = 2;
+    protected static final int GALLERY_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,13 +150,22 @@ public class AddItemActivity extends AppCompatActivity {
                 myAlertDialog.setPositiveButton("Gallery",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                Intent pictureActionIntent = null;
+                                if(ContextCompat.checkSelfPermission(AddItemActivity.this,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 
-                                pictureActionIntent = new Intent(
-                                        Intent.ACTION_PICK,
-                                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                activityResultLauncher2.launch(pictureActionIntent);
+                                    ActivityCompat.requestPermissions(AddItemActivity.this
+                                            , new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PICTURE);
+                                }else{
+                                    //Intent imageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    // startActivityForResult(imageIntent,2);
 
+                                    Intent pictureActionIntent = null;
+
+                                    pictureActionIntent = new Intent(
+                                            Intent.ACTION_PICK,
+                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    activityResultLauncher2.launch(pictureActionIntent);
+                                }
                             }
                         });
 
@@ -304,5 +314,28 @@ public class AddItemActivity extends AppCompatActivity {
                 Toast.makeText(AddItemActivity.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //Method implemented when the permission is accepted.
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if(requestCode == 2 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            //Declare a new intent and start the Intent
+            Intent intent = new Intent(
+                    MediaStore.ACTION_IMAGE_CAPTURE);
+            activityResultLauncher.launch(intent);
+
+        }else if(requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            Intent pictureActionIntent = null;
+
+            pictureActionIntent = new Intent(
+                    Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            activityResultLauncher2.launch(pictureActionIntent);
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

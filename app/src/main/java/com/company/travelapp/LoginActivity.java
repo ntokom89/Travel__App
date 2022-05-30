@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Register onClick method that will take you to registration page
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //Method to signIn with email and password from user
     private void signInWithAccount(String email, String password) {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

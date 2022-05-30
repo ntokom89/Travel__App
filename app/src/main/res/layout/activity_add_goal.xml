@@ -63,35 +63,45 @@
             android:textColor="#673AB7"
             android:textSize="19sp" />
 
-        <EditText
-            android:id="@+id/editTextCategoryNameGoal"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textViewDialogChoice2"
+            android:layout_width="318dp"
             android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/square_shape"
-            android:backgroundTint="#FFFFFF"
-            android:hint="Category name" />
+            android:background="@android:drawable/editbox_background"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:drawablePadding="16dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="Select Category Type"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/editTextGoalName"
-            android:layout_width="match_parent"
+            android:layout_width="318dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:background="@drawable/square_shape"
             android:backgroundTint="#FFFFFF"
             android:ems="10"
+            android:gravity="center"
             android:hint="Goal Name"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextGoalDescription"
-            android:layout_width="match_parent"
+            android:layout_width="318dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:background="@drawable/square_shape"
             android:backgroundTint="#FFFFFF"
             android:ems="10"
-            android:hint="Deadline"
+            android:gravity="center"
+            android:hint="Description"
             android:inputType="textPersonName"
             android:minHeight="48dp" />
 
@@ -107,12 +117,14 @@
 
         <EditText
             android:id="@+id/editTextGoalAmount"
-            android:layout_width="match_parent"
+            android:layout_width="318dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="7dp"
             android:background="@drawable/square_shape"
             android:backgroundTint="#FFFFFF"
             android:ems="10"
+            android:gravity="center"
             android:hint="Amount"
             android:inputType="textPersonName"
             android:minHeight="48dp" />

@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Declarations
         goal = findViewById(R.id.imageViewGoal);
         categories = findViewById(R.id.imageViewCategories);
         camera = findViewById(R.id.imageViewCamera);
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         uploadImage =findViewById(R.id.imageViewUploadImage);
         viewItem = findViewById(R.id.imageViewViewItem);
         personal = findViewById(R.id.imageViewPersonSettings);
-
         search = findViewById(R.id.editTextSearchMain);
 
         goal.setOnClickListener(new View.OnClickListener() {

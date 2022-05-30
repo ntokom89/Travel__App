@@ -121,13 +121,22 @@ public class AddCollectionActivity extends AppCompatActivity {
                 myAlertDialog.setPositiveButton("Gallery",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
-                                Intent pictureActionIntent = null;
+                                if(ContextCompat.checkSelfPermission(AddCollectionActivity.this,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 
-                                pictureActionIntent = new Intent(
-                                        Intent.ACTION_PICK,
-                                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                activityResultLauncher2.launch(pictureActionIntent);
+                                    ActivityCompat.requestPermissions(AddCollectionActivity.this
+                                            , new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PICTURE);
+                                }else{
+                                    //Intent imageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    // startActivityForResult(imageIntent,2);
 
+                                    Intent pictureActionIntent = null;
+
+                                    pictureActionIntent = new Intent(
+                                            Intent.ACTION_PICK,
+                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    activityResultLauncher2.launch(pictureActionIntent);
+                                }
                             }
                         });
 
@@ -154,7 +163,7 @@ public class AddCollectionActivity extends AppCompatActivity {
             }
         });
 
-        //Activity result launcher that gets data from Bitmap result and implements saveImage method to get uri of the image
+        //Activity result launcher that gets data from Bitmap result and implements saveImage method to get uri of the image(Projects, 2022)
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -245,22 +254,29 @@ public class AddCollectionActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        if(requestCode == 2 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
         {
             //Declare a new intent and start the Intent
             Intent intent = new Intent(
                     MediaStore.ACTION_IMAGE_CAPTURE);
             activityResultLauncher.launch(intent);
 
+        }else if(requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            Intent pictureActionIntent = null;
+
+            pictureActionIntent = new Intent(
+                    Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            activityResultLauncher2.launch(pictureActionIntent);
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
-    //A method that will save the image that the user has taken with camera and return the uri of the image.
+    //A method that will save the image that the user has taken with camera and return the uri of the image(Projects, 2022).
     private Uri saveImage(Bitmap image, Context context) {
-        // Create an image file name
+        // Create an image file name(Projects, 2022)
         File imageFolder = new File(context.getCacheDir(),"images");
         Uri uri = null;
         try{
@@ -272,7 +288,7 @@ public class AddCollectionActivity extends AppCompatActivity {
             //flush and close the the FileOutputStream
             stream.flush();
             stream.close();
-            //Get uri from the FileProvider
+            //Get uri from the FileProvider(Projects, 2022)
             uri = FileProvider.getUriForFile(context.getApplicationContext(),"com.company.travelapp" + ".provider",file);
         }catch (FileNotFoundException e){
             e.printStackTrace();
