@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -38,6 +39,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
+        //Declarations
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories");
         referenceGoal = FirebaseDatabase.getInstance().getReference().child("Goals");
         textViewGoalDescription = findViewById(R.id.textViewGoalDescription);
@@ -51,34 +53,16 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
         buttonSetGoal = findViewById(R.id.buttonSetGoal);
         listCollection = new ArrayList<>();
 
+        //Declare and set up linearLayout
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(GoalActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        //Set the recyclerView layout to horizontalLayoutManager
         recyclerView.setLayoutManager(horizontalLayoutManager);
         loadData();
     }
 
+    //Method to load list of categories from the database along with declaring and setting the adapter for recyclerViewAndroidJSon, 2017) (Lackner, 2020)
     public void loadData(){
-        /*
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listCollection.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Imagemodel imagemodel = dataSnapshot.getValue(Imagemodel.class);
-                    imagesList.add(imagemodel);
-                }
-                imageAdapter = new ImageAdapter(mContext,mActivity, (ArrayList<Imagemodel>) imagesList);
-                recyclerView.setAdapter(imageAdapter);
-                adapter.notifyDataSetChanged();
-                progress_circular.setVisibility(View.GONE);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
-         */
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,6 +86,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
         });
     }
 
+    //A onClick method when one of the items is clicked(Codexpedia, 2022).
     @Override
     public void onItemClick(View view, int position) {
         Collection category = listCollection.get(position);
@@ -117,25 +102,22 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
                 Double totalBudget;
                 Double currentAmount;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    //Long totalBudget = dataSnapshot.child("goalTotalAmount").getValue(Long.class);
-                    //Long currentAmount = dataSnapshot.child("goalCurrentAmount").getValue(Long.class);
+
+                    //Get data from database
                      totalBudget = dataSnapshot.child("goalTotalAmount").getValue(Double.class);
                      currentAmount = dataSnapshot.child("goalCurrentAmount").getValue(Double.class);
                     String description = dataSnapshot.child("goalDescription").getValue(String.class);
-                    //String categoryIDGoal =  dataSnapshot.child("goalDescription").getValue(String.class);
-                    textViewGoalDescription.setText(description);
 
+
+
+                    //Set variables for the goal section
+                    textViewGoalDescription.setText(description);
                     totalPercentage += (currentAmount/totalBudget)*100;
-                    textViewBudget.setText("R " + totalBudget);
-                    //String categoryID =dataSnapshot.child("categoryID").getValue(String.class);
-                    //totalPercentage =  ((int)(currentAmount/totalBudget))*100;
-                    //long percentage = (currentAmount/totalBudget)*100;
+                    textViewBudget.setText("Total budget : R " + totalBudget);
                     textViewProgress.setText(totalPercentage +"%");
-                    //nt progressBarPercentage = totalPercentage.intValue();
                     progressBar.setMax(100);
                     progressBar.setProgress((int)totalPercentage);
 
-                    //int testPercentage = 50;
                     Toast.makeText(GoalActivity.this,"Goal description downloaded",Toast.LENGTH_LONG).show();
 
                 }
@@ -147,12 +129,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
             }
         });
 
+        Log.d("Test", "Goal loaded");
 
-        // test
-
-
-        //i.putExtra("image", city.imageName);
-        //Log.i("hello", city.name);
-        //startActivity(i);
     }
 }

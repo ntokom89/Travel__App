@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         personal = findViewById(R.id.imageViewPersonSettings);
         search = findViewById(R.id.editTextSearchMain);
 
+        //Methods that take user to pages such as a goal page and categories page
         goal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -88,7 +88,7 @@ public class AddItemActivity extends AppCompatActivity {
         loadDataCategory();
 
 
-        //Method set when buttonAdd is clicked on
+        //Method set when buttonAdd is clicked on which if all details are entered will allow the adding of them to Firebase (Lackner, 2020)(AndroidJSon, 2017)
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +111,7 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
+        //A onClick method for the alertDialog that will show list of single choice categories that will pop out(Pervaiz, 2018)
         categoryTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,9 +120,12 @@ public class AddItemActivity extends AppCompatActivity {
                      String categoryName = category.getCategoryName();
                      listOfCategories.add(categoryName);
                  }
+                 //A charSequence List to make use of the alertDialog
                  CharSequence[] cs = listOfCategories.toArray(new CharSequence[listOfCategories.size()]);
+                 //AlertDialog declared(Pervaiz, 2018)
                  AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(AddItemActivity.this);
                  myAlertDialog.setTitle("Choose a category");
+                 //A onclick method when a single item is chosen(Pervaiz, 2018).
                  myAlertDialog.setSingleChoiceItems(cs, -1, new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
@@ -137,16 +141,19 @@ public class AddItemActivity extends AppCompatActivity {
         });
 
 
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
+                //A alertDialog is created along with messsege and title(Pervaiz, 2018)(Goel, 2020).
                 AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(
                         AddItemActivity.this);
                 myAlertDialog.setTitle("Upload Pictures Option");
                 myAlertDialog.setMessage("How do you want to upload your picture?");
 
+                //Two buttons for either gallery or camera(Pervaiz, 2018)(Goel, 2020).
                 myAlertDialog.setPositiveButton("Gallery",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface arg0, int arg1) {
@@ -156,8 +163,6 @@ public class AddItemActivity extends AppCompatActivity {
                                     ActivityCompat.requestPermissions(AddItemActivity.this
                                             , new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PICTURE);
                                 }else{
-                                    //Intent imageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                    // startActivityForResult(imageIntent,2);
 
                                     Intent pictureActionIntent = null;
 
@@ -188,10 +193,13 @@ public class AddItemActivity extends AppCompatActivity {
                             }
 
                         });
+                //Show the alert dialog(Pervaiz, 2018)
                 myAlertDialog.show();
             }
         });
 
+
+        //A activityResultLauncher that registers for startActivityForResult() method as shown below(Projects, 2022)
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -210,6 +218,7 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
+        //A second activityResultLauncher that is when the gallery has been selected and the intent has been launched(Projects, 2022)
         activityResultLauncher2 = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -218,6 +227,8 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
     }
+    //Method to add item to Firebase and image to both database and storage of Firebase(Goel, 2020)(Mamo, 2017)(GeeksforGeeks, 2020)
+    //(Mamo, StackOverflow,2017)
     public void addItemToFirebase(String name,String Description, String dateAquired, Uri uriImage){
 
         StorageReference fileRef = storageReference.child(System.currentTimeMillis()+ "." + getFileExtension(uriImage));
@@ -253,27 +264,18 @@ public class AddItemActivity extends AppCompatActivity {
         });
     }
 
+    //A method for the file extension for the Uri
     private String  getFileExtension(Uri uriImage) {
         ContentResolver cr = getContentResolver();
         MimeTypeMap mimeType = MimeTypeMap.getSingleton();
         return mimeType.getExtensionFromMimeType(cr.getType(uriImage));
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == 2 && resultCode == RESULT_OK && data != null){
-
-            imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-        }
 
 
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
+    //Same functionality to save the image in a url as addCollectionActivity(Projects, 2022)
     private Uri saveImage(Bitmap image, Context context) {
-        // Create an image file name
+        // Create an image file name(Projects, 2022)
         File imageFolder = new File(context.getCacheDir(),"images");
         Uri uri = null;
         try{
@@ -295,6 +297,7 @@ public class AddItemActivity extends AppCompatActivity {
         return uri;
     }
 
+    //A method to load data from the list of categories to a category listCollection
     public void loadDataCategory(){
 
 

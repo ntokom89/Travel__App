@@ -4,14 +4,9 @@ public class Collection {
 
     private String categoryID;
     private String categoryName;
-   // private int imageCollection;
     private String imageUri;
     private String userID;
 
-    //public Collection(String categoryName, int imageCollection) {
-  //      this.categoryName = categoryName;
-   //     this.imageCollection = imageCollection;
-  //  }
 
     public Collection(String categoryID, String categoryName, String imageUri, String userID) {
         this.categoryID = categoryID;

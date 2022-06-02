@@ -39,10 +39,12 @@ public class LoginActivity extends AppCompatActivity {
         register = findViewById(R.id.textViewRegister);
 
 
+        //A button that allows the user to login when clicked
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (email != null && password != null) {
+                    //implement the method to sign in
                     signInWithAccount(email.getText().toString(), password.getText().toString());
                 }else if(email == null && password != null) {
                     Toast.makeText(LoginActivity.this,"Please enter email",Toast.LENGTH_LONG).show();

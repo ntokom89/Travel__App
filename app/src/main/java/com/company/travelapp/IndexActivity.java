@@ -17,9 +17,11 @@ public class IndexActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
 
+        //Declarations
         signIn = findViewById(R.id.buttonIndexSignIn);
         signUp = findViewById(R.id.buttonIndexSignUp);
 
+        //Method that takes you to sign in page when the button is clicked
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,6 +29,7 @@ public class IndexActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Method that takes you to sign up/register  page when the button is clicked
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

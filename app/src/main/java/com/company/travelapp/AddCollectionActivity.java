@@ -200,19 +200,20 @@ public class AddCollectionActivity extends AppCompatActivity {
     //A method to add the image and storage to Firebase storage and database.
     public void addCollectionToFirebase(String name, Uri uriImage){
 
-        //Get a file reference for storageReference
+        //Get a file reference for storageReference(CodingSTUFF, 2020)
         StorageReference fileRef = storageReference.child(System.currentTimeMillis()+ "." + getFileExtension(uriImage));
-        //put file with the uri image from user into storage.
+        //put file with the uri image from user into storage(CodingSTUFF, 2020).
         fileRef.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                //A method to download the uri and upload the uri along with other data into database
+                //A method to download the uri and upload the uri along with other data into database(CodingSTUFF, 2020)
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
 
 
+                        //saving the category(GeeksforGeeks, 2020)
                          Collection category = new Collection();
                          category.setCategoryName(name);
                          category.setImageUri(uri.toString());
@@ -222,7 +223,7 @@ public class AddCollectionActivity extends AppCompatActivity {
                          String userID = user.getUid();
                          category.setUserID(userID);
                          category.setCategoryID(categoryID);
-                         //Set value of child to category
+                         //Set value of child to category(GeeksforGeeks, 2020)
                          databaseReference.child(categoryID).setValue(category);
                         Toast.makeText(AddCollectionActivity.this,"Upload of image and data successful",Toast.LENGTH_LONG).show();
 

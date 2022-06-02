@@ -40,6 +40,7 @@ public class AddGoalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_goal);
+        //Declaration to setup UI
         goal = new Goal();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Goals");
         referenceCategory = FirebaseDatabase.getInstance().getReference().child("Categories");
@@ -50,8 +51,10 @@ public class AddGoalActivity extends AppCompatActivity {
         addGoalButton = findViewById(R.id.buttonAddGoal);
         listCollection = new ArrayList<>();
 
+        //Method to download the list of categories for alertDialog
         loadDataCategory();
 
+        //A onclick listener for list of categories that will pop out when button is clicked
         categoryNameView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,47 +81,34 @@ public class AddGoalActivity extends AppCompatActivity {
         });
 
 
+        //A add goal button that adds the goal to the database
         addGoalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(description != null && amount != null && goalName != null && categoryID != null)
-                goal.setGoalDescription(description.getText().toString());
-                goal.setGoalTotalAmount(Integer.parseInt(amount.getText().toString()));
-                goal.setGoalCurrentAmount(0);
-                goal.setGoalName(goalName.getText().toString());
-               // String  name = categoryName.getText().toString();
-                //String categoryIDGoal;
-                //Query databaseQuery = referenceCategory.orderByChild("categoryName").equalTo(name);
-                //Collection collectionTemp;
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            goal.setCategoryID(categoryID);
-                            String goalID = databaseReference.push().getKey();
-                            goal.setGoalID(goalID);
-                            databaseReference.child(goal.getGoalID()).setValue(goal);
-                            Toast.makeText(AddGoalActivity.this,"Goal data added to database ",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(AddGoalActivity.this,MainActivity.class);
-                            startActivity(intent);
-
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(AddGoalActivity.this,"Database error",Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                //addToFirebase(description.getText().toString(),Integer.parseInt(amount.getText().toString()),goalName.getText().toString(),goal.getCategoryID());
-
+                //If all variables are not null
+                if(description != null && amount != null && goalName != null && categoryID != null) {
+                    //Set the variables for goal object
+                    goal.setGoalDescription(description.getText().toString());
+                    goal.setGoalTotalAmount(Integer.parseInt(amount.getText().toString()));
+                    goal.setGoalCurrentAmount(0);
+                    goal.setGoalName(goalName.getText().toString());
+                    goal.setCategoryID(categoryID);
+                    //Get random key for goalID
+                    String goalID = databaseReference.push().getKey();
+                    goal.setGoalID(goalID);
+                    //Add the goal with the goalID being the ID by child
+                    databaseReference.child(goal.getGoalID()).setValue(goal);
+                    Toast.makeText(AddGoalActivity.this, "Goal data added to database ", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(AddGoalActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(AddGoalActivity.this, "Please enter all variables on the screen", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    //Method to load the data(AndroidJSon, 2017)
     public void loadDataCategory(){
 
 

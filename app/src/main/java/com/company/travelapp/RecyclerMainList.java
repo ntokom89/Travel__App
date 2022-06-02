@@ -15,12 +15,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+//Recycelerview adapter for the category list
 public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyViewHolder>  {
 
+    //Interface declared for a method when item is clicked(Codexpedia, 2022)
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
+    //Declaration
     private Context mContext;
     private ArrayList<Collection> mData;
     private  OnItemClickListener listener;
@@ -62,6 +65,7 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
         this.listener = itemClickListener;
     }
 
+    //A method for a viewHolder to hold the components of the xml format that also implements a onclickListener(Codexpedia, 2022)(Lackner, 2020)
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView card_title;
@@ -84,22 +88,7 @@ public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyVi
         public void onClick(View v) {
 
             onItemClickListener.onItemClick(v, getAdapterPosition());
-            //if (listener != null) {
-            //    listener.onItemClick(v, getAdapterPosition());
-            //}
-        }
-        /*
-        public void bind(final Collection item, final OnItemClickListener listener) {
-            card_title.setText(item.getCategoryName());
-            Picasso.get().load(item.getImageUri()).into(card_image);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(item);
-                }
-            });
         }
 
-         */
     }
 }

@@ -45,7 +45,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
 
     }
 
-   //Method to load the data from categories child node and add the list of them into a list which will be used on the adapter.
+   //Method to load the data from categories child node and add the list of them into a list which will be used on the adapter(AndroidJSon, 2017) (Lackner, 2020).
     public void loadData(){
 
 
@@ -55,7 +55,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //clear the list
                 listCollection.clear();
-                //For each dataSnapshot  in the children of categories.
+                //For each dataSnapshot  in the children of categories(AndroidJSon, 2017).
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     //Get the category and add it to a list
                     Collection category = dataSnapshot.getValue(Collection.class);
@@ -75,10 +75,10 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
         });
     }
 
-    //Method that implemeneted when a item in a recyclerview is clicked on.
+    //Method that implemeneted when a item in a recyclerview is clicked on(Codexpedia, 2022).
     @Override
     public void onItemClick(View view, int position) {
-        //Create collection category to get a category at postion where the item is clicked.
+        //Create collection category to get a category at postion where the item is clicked(Codexpedia, 2022).
         Collection category = listCollection.get(position);
         //New Intent
         Intent i = new Intent(CategoryListActivity.this, ItemListActivty.class);

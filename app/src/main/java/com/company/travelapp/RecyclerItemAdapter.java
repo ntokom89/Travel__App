@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+//A adapter for the recyclerView with the list of items(Lackner, 2020)
 public class RecyclerItemAdapter extends RecyclerView.Adapter<RecyclerItemAdapter.MyViewHolder>{
 
     private Context mContext;

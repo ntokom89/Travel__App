@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+
+// A Adapter for the category list in the Goal page(Codexpedia, 2022)(Lackner, 2020)
 public class RecyclerCategoryListGoal extends RecyclerView.Adapter<RecyclerCategoryListGoal.MyViewHolder> {
 
     public interface OnItemClickListener2 {
@@ -38,6 +40,7 @@ public class RecyclerCategoryListGoal extends RecyclerView.Adapter<RecyclerCateg
         return  new MyViewHolder(view, listener);
     }
 
+    //A Method that sets the values of the components (Lackner, 2020)
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.card_name.setText(mData.get(position).getCategoryName());
@@ -52,6 +55,7 @@ public class RecyclerCategoryListGoal extends RecyclerView.Adapter<RecyclerCateg
     public void setClickListener(RecyclerCategoryListGoal.OnItemClickListener2 itemClickListener) {
         this.listener = itemClickListener;
     }
+    //A viewHolder with the components and it implements a onClickListener (Codexpedia, 2022)(Lackner, 2020)
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CardView cardView;
