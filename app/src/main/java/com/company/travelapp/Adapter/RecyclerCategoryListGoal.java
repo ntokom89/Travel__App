@@ -1,4 +1,4 @@
-package com.company.travelapp;
+package com.company.travelapp.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.company.travelapp.Model.Collection;
+import com.company.travelapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -123,7 +123,7 @@
         android:id="@+id/textViewSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="72dp"
         android:layout_marginBottom="16dp"
         android:text="Already have a account? SIGN IN"
         android:textColor="#FFFFFF"

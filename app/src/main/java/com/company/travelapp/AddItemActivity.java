@@ -5,7 +5,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -30,8 +29,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.travelapp.Model.Collection;
+import com.company.travelapp.Model.Item;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +62,7 @@ public class AddItemActivity extends AppCompatActivity {
     Uri imageUri;
     String categoryID;
     Collection category;
+    FirebaseAuth mAuth;
     ActivityResultLauncher<Intent> activityResultLauncher;
     ActivityResultLauncher<Intent> activityResultLauncher2;
     ArrayList<Collection> listCollection;
@@ -72,9 +75,11 @@ public class AddItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_item);
 
         //Declaration section
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Items");
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories");
         storageReference = FirebaseStorage.getInstance().getReference("imageItem");
-        databaseCategory = FirebaseDatabase.getInstance().getReference().child("Categories");
+        databaseCategory = FirebaseDatabase.getInstance().getReference().child("Categories").child(mAuth.getUid());
+
         itemName = findViewById(R.id.editTextItemName);
         itemDescription = findViewById(R.id.editTextDescription);
         itemDateAquired = findViewById(R.id.editTextDateAquired);
@@ -248,7 +253,7 @@ public class AddItemActivity extends AppCompatActivity {
                         item.setImageUri(uri.toString());
                         String ItemID = databaseReference.push().getKey();
                         item.setItemId(ItemID);
-                        databaseReference.child(ItemID).setValue(item);
+                        databaseReference.child(mAuth.getUid()).child(categoryID).child("Items").child(ItemID).setValue(item);
 
 
                     }

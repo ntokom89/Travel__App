@@ -2,6 +2,7 @@ package com.company.travelapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.company.travelapp.Adapter.RecyclerItemAdapter;
+import com.company.travelapp.Model.Item;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +30,7 @@ public class ItemListActivty extends AppCompatActivity {
     DatabaseReference databaseReference;
     RecyclerItemAdapter adapter;
     Intent intent;
-    String categoryID,categoryName;
+    String categoryID,userID ;
     Button buttonAddItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,13 @@ public class ItemListActivty extends AppCompatActivity {
 
         //Declarations to setup UI
         buttonAddItem = findViewById(R.id.buttonAddItemView);
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Items");
+        //databaseReference = FirebaseDatabase.getInstance().getReference().child("Items");
+
         listItem = new ArrayList<>();
         intent = getIntent();
         categoryID = intent.getStringExtra("CategoryID");
-        categoryName = intent.getStringExtra("CategoryName");
-
+        userID = intent.getStringExtra("UserID");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories").child(userID).child(categoryID).child("Items");
 
         recyclerView =  findViewById(R.id.RecyclerViewItemList);
 
@@ -57,19 +61,45 @@ public class ItemListActivty extends AppCompatActivity {
                 //Create the intent and pass the categoryID and name when intent is called.
                 Intent intent2 = new Intent(ItemListActivty.this,AddItemActivity.class);
                 intent2.putExtra("CategoryID",categoryID);
-                intent2.putExtra("CategoryName",categoryName);
                 startActivity(intent2);
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                Item item = adapter.getPosition(viewHolder.getAdapterPosition());
+                Query query = databaseReference.orderByChild("nameItem").equalTo(item.getNameItem());
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
+                            appleSnapshot.getRef().removeValue();
+                            Toast.makeText(ItemListActivty.this,"Item deleted",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(ItemListActivty.this,"Item unable to be deleted in the database",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }).attachToRecyclerView(recyclerView);
 
     }
 
     //Method to load the data of the list of items in a specific category
     public void loadData(){
-
         //Query the database where the items are filtered by categoryID entered
         Query databaseQuery = databaseReference.orderByChild("categoryID").equalTo(categoryID);
-        databaseQuery.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listItem.clear();

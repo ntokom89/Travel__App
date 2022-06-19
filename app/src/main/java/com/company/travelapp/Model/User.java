@@ -1,4 +1,4 @@
-package com.company.travelapp;
+package com.company.travelapp.Model;
 
 public class User {
     private String username;

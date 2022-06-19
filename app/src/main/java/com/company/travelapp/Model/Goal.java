@@ -1,4 +1,4 @@
-package com.company.travelapp;
+package com.company.travelapp.Model;
 
 public class Goal {
 
@@ -8,6 +8,7 @@ public class Goal {
     private int goalTotalAmount;
     private int goalCurrentAmount;
     private String categoryID;
+    private String goalType;
 
     public Goal(String goalID, String goalDescription, int goalTotalAmount, int goalCurrentAmount) {
         this.goalID = goalID;
@@ -18,6 +19,14 @@ public class Goal {
 
     public Goal() {
 
+    }
+
+    public String getGoalType() {
+        return goalType;
+    }
+
+    public void setGoalType(String goalType) {
+        this.goalType = goalType;
     }
 
     public String getGoalID() {

@@ -1,6 +1,9 @@
-package com.company.travelapp;
+package com.company.travelapp.Model;
 
-public class Item {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Item implements Parcelable {
     private String itemId;
     private String categoryID;
     private String nameItem;
@@ -19,6 +22,28 @@ public class Item {
 
     public Item() {
     }
+
+    protected Item(Parcel in) {
+        itemId = in.readString();
+        categoryID = in.readString();
+        nameItem = in.readString();
+        descriptionItem = in.readString();
+        dateAquiredItem = in.readString();
+        imageItem = in.readInt();
+        imageUri = in.readString();
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
     public String getImageUri() {
         return imageUri;
@@ -74,5 +99,21 @@ public class Item {
 
     public void setItemId(String itemId) {
         this.itemId = itemId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(itemId);
+        dest.writeString(categoryID);
+        dest.writeString(nameItem);
+        dest.writeString(descriptionItem);
+        dest.writeString(dateAquiredItem);
+        dest.writeInt(imageItem);
+        dest.writeString(imageUri);
     }
 }

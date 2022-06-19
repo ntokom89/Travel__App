@@ -5,7 +5,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -19,13 +18,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -34,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.company.travelapp.Model.Collection;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,14 +39,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AddCollectionActivity extends AppCompatActivity {
 
@@ -218,13 +210,15 @@ public class AddCollectionActivity extends AppCompatActivity {
                          category.setCategoryName(name);
                          category.setImageUri(uri.toString());
                          //A categoryID with a randomised key that gets pushed.
-                         String categoryID = databaseReference.push().getKey();
+                         //String categoryID = databaseReference.push().getKey();
                          //Get userID of the user.
                          String userID = user.getUid();
+                         String categoryID = userID + category.getCategoryName();
                          category.setUserID(userID);
                          category.setCategoryID(categoryID);
+                         category.setItems(null);
                          //Set value of child to category(GeeksforGeeks, 2020)
-                         databaseReference.child(categoryID).setValue(category);
+                         databaseReference.child(userID).child(categoryID).setValue(category);
                         Toast.makeText(AddCollectionActivity.this,"Upload of image and data successful",Toast.LENGTH_LONG).show();
 
                     }

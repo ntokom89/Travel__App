@@ -1,4 +1,4 @@
-package com.company.travelapp;
+package com.company.travelapp.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.company.travelapp.Model.Item;
+import com.company.travelapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class RecyclerItemAdapter extends RecyclerView.Adapter<RecyclerItemAdapte
     public RecyclerItemAdapter(Context mContext, ArrayList<Item> mData) {
         this.mContext = mContext;
         this.mData = mData;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -48,6 +51,8 @@ public class RecyclerItemAdapter extends RecyclerView.Adapter<RecyclerItemAdapte
     public int getItemCount() {
         return mData.size();
     }
+
+    public Item getPosition(int adapterPosition) { return mData.get(adapterPosition);    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 

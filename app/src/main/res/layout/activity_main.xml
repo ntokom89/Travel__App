@@ -239,7 +239,7 @@
 
         <ImageView
             android:id="@+id/imageViewViewItem"
-            android:layout_width="179dp"
+            android:layout_width="140dp"
             android:layout_height="107dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="24dp"
@@ -252,7 +252,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
-            android:layout_marginEnd="88dp"
+            android:layout_marginEnd="68dp"
             android:text="View List"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"

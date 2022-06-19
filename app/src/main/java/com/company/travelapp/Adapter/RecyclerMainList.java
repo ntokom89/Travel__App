@@ -1,4 +1,4 @@
-package com.company.travelapp;
+package com.company.travelapp.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,12 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.company.travelapp.Model.Collection;
+import com.company.travelapp.Model.Item;
+import com.company.travelapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 //Recycelerview adapter for the category list
 public class RecyclerMainList extends RecyclerView.Adapter<RecyclerMainList.MyViewHolder>  {
+
+    public Collection getPosition(int adapterPosition) {
+      return   mData.get(adapterPosition);
+    }
 
     //Interface declared for a method when item is clicked(Codexpedia, 2022)
     public interface OnItemClickListener {

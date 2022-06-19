@@ -63,12 +63,14 @@
         android:id="@+id/switchNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="292dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintStart_toEndOf="@+id/textView20" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -96,7 +98,7 @@
         android:id="@+id/switchCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="56dp"
         android:layout_marginBottom="212dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
