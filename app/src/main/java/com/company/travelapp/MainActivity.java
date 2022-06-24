@@ -78,7 +78,30 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        uploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UploadImageActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UploadImageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        personal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

@@ -3,16 +3,19 @@ package com.company.travelapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +41,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,7 +52,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
     TextView textViewGoalDescription, textViewBudget, textViewProgress;
     ProgressBar progressBar;
     RecyclerView recyclerView;
-    Button buttonTopUp, buttonSetGoal;
+    Button buttonTopUp, buttonSetGoal, buttonDelete;
     ArrayList<Collection> listCollection;
     DatabaseReference databaseReference, referenceGoal;
     RecyclerCategoryListGoal adapter;
@@ -56,6 +61,8 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
     ImageView imageBack;
     FirebaseAuth mAuth;
     private NotificationManager notifManager;
+    NotificationManagerCompat notificationCompat;
+    Notification notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +81,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
 
         buttonTopUp = findViewById(R.id.buttonTopUp);
         buttonSetGoal = findViewById(R.id.buttonSetGoal);
+        buttonDelete = findViewById(R.id.buttonDelete);
         imageBack = findViewById(R.id.imageViewBackBtn);
         mAuth = FirebaseAuth.getInstance();
         listCollection = new ArrayList<>();
@@ -136,6 +144,36 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
                 finish();
             }
         });
+
+        buttonSetGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GoalActivity.this, AddGoalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Query query = referenceGoal.orderByChild("categoryID").equalTo(categoryID);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
+                            appleSnapshot.getRef().removeValue();
+
+                            Toast.makeText(GoalActivity.this,"Goal deleted", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(GoalActivity.this,"Category not able to be deleted in database", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     //Method to load list of categories from the database along with declaring and setting the adapter for recyclerViewAndroidJSon, 2017) (Lackner, 2020)
@@ -177,30 +215,44 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 double totalPercentage = 0;
-                Double totalBudget;
+                Double totalAmount;
                 Double currentAmount;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                    //Get data from database
-                     totalBudget = dataSnapshot.child("goalTotalAmount").getValue(Double.class);
-                     currentAmount = dataSnapshot.child("goalCurrentAmount").getValue(Double.class);
-                    String description = dataSnapshot.child("goalDescription").getValue(String.class);
+                    if(dataSnapshot.exists()) {
+                        //Get data from database
+                        totalAmount = dataSnapshot.child("goalTotalAmount").getValue(Double.class);
+                        currentAmount = dataSnapshot.child("goalCurrentAmount").getValue(Double.class);
+                        String description = dataSnapshot.child("goalDescription").getValue(String.class);
+                        String goalType = dataSnapshot.child("goalType").getValue(String.class);
 
-                    goalID = dataSnapshot.child("goalID").getValue(String.class);
-
-
-                    //Set variables for the goal section
-                    textViewGoalDescription.setText(description);
-                    totalPercentage += (currentAmount/totalBudget)*100;
-                    textViewBudget.setText("Total budget : R " + totalBudget);
-                    textViewProgress.setText(totalPercentage +"%");
-                    progressBar.setMax(100);
-                    progressBar.setProgress((int)totalPercentage);
-
-                    Toast.makeText(GoalActivity.this,"Goal description downloaded",Toast.LENGTH_LONG).show();
-                    showNotification("Bonjour Travel App", "Current goal is : " + description);
+                        goalID = dataSnapshot.child("goalID").getValue(String.class);
 
 
+                        //Set variables for the goal section
+                        textViewGoalDescription.setText(description);
+                        totalPercentage += (currentAmount / totalAmount) * 100;
+                        if (goalType.equals("Budget")) {
+                            textViewBudget.setText("Total budget : R " + totalAmount);
+                            showNotification("Bonjour Travel App", "Current goal is : " + description + " With R" + currentAmount + " out of R" + totalAmount);
+
+                        } else if (goalType.equals("Item")) {
+                            textViewBudget.setText("Total  items : " + totalAmount);
+                            showNotification("Bonjour Travel App", "Current goal is : " + description + " With " + currentAmount + " out of " + totalAmount + " items");
+
+                        }
+                        DecimalFormat df = new DecimalFormat("#.#");
+                        df.setRoundingMode(RoundingMode.CEILING);
+                        textViewProgress.setText(df.format(totalPercentage) + "%");
+                        progressBar.setMax(100);
+                        progressBar.setProgress((int) totalPercentage);
+
+                        Toast.makeText(GoalActivity.this, "Goal description downloaded", Toast.LENGTH_LONG).show();
+
+
+                    }else if(dataSnapshot.exists() == false){
+                        Toast.makeText(GoalActivity.this, "Goal not set for selected category", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
@@ -215,23 +267,23 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
     }
 
     void showNotification(String title, String message) {
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("YOUR_CHANNEL_ID",
-                    "YOUR_CHANNEL_NAME",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DESCRIPTION");
-            mNotificationManager.createNotificationChannel(channel);
+
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("mych","My Channel",NotificationManager.IMPORTANCE_DEFAULT);
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
         }
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "YOUR_CHANNEL_ID")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle(title) // title for notification
-                .setContentText(message)// message for notification
-                .setAutoCancel(true); // clear notification after click
-        Intent intent = new Intent(getApplicationContext(), GoalActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mNotificationManager.notify(0, mBuilder.build());
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mych")
+                .setSmallIcon(R.drawable.goal_icon)
+                .setContentTitle(title)
+                .setContentText(message);
+
+        notification = builder.build();
+        notificationCompat = NotificationManagerCompat.from(this);
+
+        notificationCompat.notify(1,notification);
     }
 }

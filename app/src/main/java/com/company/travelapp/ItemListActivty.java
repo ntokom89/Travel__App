@@ -22,12 +22,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ItemListActivty extends AppCompatActivity {
 
     ArrayList<Item> listItem;
     RecyclerView recyclerView;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference,referenceGoal;
     RecyclerItemAdapter adapter;
     Intent intent;
     String categoryID,userID ;
@@ -73,14 +74,40 @@ public class ItemListActivty extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+                referenceGoal = FirebaseDatabase.getInstance().getReference().child("Goals");
+                Query queryGoal = referenceGoal.orderByChild("categoryID").equalTo(categoryID);
                 Item item = adapter.getPosition(viewHolder.getAdapterPosition());
                 Query query = databaseReference.orderByChild("nameItem").equalTo(item.getNameItem());
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
                             appleSnapshot.getRef().removeValue();
+                            queryGoal.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Double currentAmount;
+                                    for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
+                                        currentAmount = appleSnapshot.child("goalCurrentAmount").getValue(Double.class);
+                                        String goalType = appleSnapshot.child("goalType").getValue(String.class);
+
+                                        String goalID = appleSnapshot.child("goalID").getValue(String.class);
+
+                                        if(goalType.equals("Item")){
+                                            HashMap goal = new HashMap();
+                                            currentAmount--;
+                                            goal.put("goalCurrentAmount",currentAmount);
+
+                                            referenceGoal.child(goalID).updateChildren(goal);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                             Toast.makeText(ItemListActivty.this,"Item deleted",Toast.LENGTH_SHORT).show();
                         }
                     }

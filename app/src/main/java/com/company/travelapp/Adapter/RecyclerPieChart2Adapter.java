@@ -42,7 +42,7 @@ public class RecyclerPieChart2Adapter extends RecyclerView.Adapter<RecyclerPieCh
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(mData.get(position).getCategoryName());
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.CEILING);
         double percentage = (mData.get(position).getItems().size()/total) *100;
         holder.number.setText(df.format(percentage) +"%");

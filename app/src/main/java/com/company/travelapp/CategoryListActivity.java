@@ -32,7 +32,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
     ArrayList<Collection> listCollection;
     ArrayList<Item> items;
     RecyclerView recyclerView;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, goalReference;
     RecyclerMainList adapter;
     FirebaseAuth mAuth;
     Button buttonAddCat, buttonGraph;
@@ -46,6 +46,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
         buttonGraph = findViewById(R.id.buttonGraph);
         //Declaration of databaseReference referring to child Categories
         //databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories");
+        goalReference = FirebaseDatabase.getInstance().getReference().child("Goals");
         mAuth = FirebaseAuth.getInstance();
         //Declare list of categories
         listCollection = new ArrayList<>();
@@ -75,6 +76,20 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
                             appleSnapshot.getRef().removeValue();
+                            Query query = goalReference.orderByChild("categoryID").equalTo(category.getCategoryID());
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
+                                        appleSnapshot.getRef().removeValue();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(CategoryListActivity.this,"Goal set on the category not able to be deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             Toast.makeText(CategoryListActivity.this,"Category deleted", Toast.LENGTH_SHORT).show();
                         }
                     }

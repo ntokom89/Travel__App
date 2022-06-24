@@ -38,6 +38,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,6 +50,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity {
@@ -57,7 +59,7 @@ public class AddItemActivity extends AppCompatActivity {
     ImageView imageView;
     TextView categoryTextView;
     Button buttonAdd;
-    DatabaseReference databaseReference, databaseCategory;
+    DatabaseReference databaseReference, databaseCategory,referenceGoal;
     StorageReference storageReference;
     Uri imageUri;
     String categoryID;
@@ -117,33 +119,33 @@ public class AddItemActivity extends AppCompatActivity {
         });
 
         //A onClick method for the alertDialog that will show list of single choice categories that will pop out(Pervaiz, 2018)
-        categoryTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<String> listOfCategories = new ArrayList<>();
-                 for(Collection category : listCollection){
-                     String categoryName = category.getCategoryName();
-                     listOfCategories.add(categoryName);
-                 }
-                 //A charSequence List to make use of the alertDialog
-                 CharSequence[] cs = listOfCategories.toArray(new CharSequence[listOfCategories.size()]);
-                 //AlertDialog declared(Pervaiz, 2018)
-                 AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(AddItemActivity.this);
-                 myAlertDialog.setTitle("Choose a category");
-                 //A onclick method when a single item is chosen(Pervaiz, 2018).
-                 myAlertDialog.setSingleChoiceItems(cs, -1, new DialogInterface.OnClickListener() {
-                     @Override
-                     public void onClick(DialogInterface dialog, int which) {
-
-                         Collection categoryC = listCollection.get(which);
-                         categoryID = categoryC.getCategoryID();
-                         categoryTextView.setText(categoryC.getCategoryName());
+            categoryTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    List<String> listOfCategories = new ArrayList<>();
+                     for(Collection category : listCollection){
+                         String categoryName = category.getCategoryName();
+                         listOfCategories.add(categoryName);
                      }
-                 });
+                     //A charSequence List to make use of the alertDialog
+                     CharSequence[] cs = listOfCategories.toArray(new CharSequence[listOfCategories.size()]);
+                     //AlertDialog declared(Pervaiz, 2018)
+                     AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(AddItemActivity.this);
+                     myAlertDialog.setTitle("Choose a category");
+                     //A onclick method when a single item is chosen(Pervaiz, 2018).
+                     myAlertDialog.setSingleChoiceItems(cs, -1, new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialog, int which) {
 
-                 myAlertDialog.show();
-            }
-        });
+                             Collection categoryC = listCollection.get(which);
+                             categoryID = categoryC.getCategoryID();
+                             categoryTextView.setText(categoryC.getCategoryName());
+                         }
+                     });
+
+                     myAlertDialog.show();
+                }
+            });
 
 
 
@@ -235,6 +237,8 @@ public class AddItemActivity extends AppCompatActivity {
     //Method to add item to Firebase and image to both database and storage of Firebase(Goel, 2020)(Mamo, 2017)(GeeksforGeeks, 2020)
     //(Mamo, StackOverflow,2017)
     public void addItemToFirebase(String name,String Description, String dateAquired, Uri uriImage){
+        referenceGoal = FirebaseDatabase.getInstance().getReference().child("Goals");
+        Query query = referenceGoal.orderByChild("categoryID").equalTo(categoryID);
 
         StorageReference fileRef = storageReference.child(System.currentTimeMillis()+ "." + getFileExtension(uriImage));
         fileRef.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -253,9 +257,34 @@ public class AddItemActivity extends AppCompatActivity {
                         item.setImageUri(uri.toString());
                         String ItemID = databaseReference.push().getKey();
                         item.setItemId(ItemID);
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                 Double currentAmount;
+                                for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
+                                    currentAmount = appleSnapshot.child("goalCurrentAmount").getValue(Double.class);
+                                    String goalType = appleSnapshot.child("goalType").getValue(String.class);
+
+                                    String goalID = appleSnapshot.child("goalID").getValue(String.class);
+
+                                    if(goalType.equals("Item")){
+                                        HashMap goal = new HashMap();
+                                        currentAmount++;
+                                        goal.put("goalCurrentAmount",currentAmount);
+
+                                        referenceGoal.child(goalID).updateChildren(goal);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         databaseReference.child(mAuth.getUid()).child(categoryID).child("Items").child(ItemID).setValue(item);
 
-
+                        Toast.makeText(AddItemActivity.this,"Upload of the Item data is successful.", Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -7,19 +7,26 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.company.travelapp.Model.Collection;
+import com.company.travelapp.Model.Goal;
+import com.company.travelapp.Model.Item;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +35,15 @@ public class AddGoalActivity extends AppCompatActivity {
 
     EditText categoryName,goalName, description,amount;
     TextView categoryNameView;
+    RadioButton goalType;
+    RadioGroup radioGroup;
     Button addGoalButton;
     DatabaseReference databaseReference, referenceCategory;
     FirebaseDatabase mDatabase;
     Goal goal;
     ArrayList<Collection> listCollection;
     String categoryID;
+    FirebaseAuth mAuth;
 
 
     @Override
@@ -44,11 +54,14 @@ public class AddGoalActivity extends AppCompatActivity {
         goal = new Goal();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Goals");
         referenceCategory = FirebaseDatabase.getInstance().getReference().child("Categories");
+        mAuth = FirebaseAuth.getInstance();
         goalName = findViewById(R.id.editTextGoalName);
         categoryNameView = findViewById(R.id.textViewDialogChoice2);
         description = findViewById(R.id.editTextGoalDescription);
         amount = findViewById(R.id.editTextGoalAmount);
         addGoalButton = findViewById(R.id.buttonAddGoal);
+        radioGroup = findViewById(R.id.radio_group);
+        radioGroup.clearCheck();
         listCollection = new ArrayList<>();
 
         //Method to download the list of categories for alertDialog
@@ -86,24 +99,75 @@ public class AddGoalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //If all variables are not null
-                if(description != null && amount != null && goalName != null && categoryID != null) {
+                if(description != null && amount != null && goalName != null && categoryID != null && radioGroup.getCheckedRadioButtonId() != -1) {
                     //Set the variables for goal object
                     goal.setGoalDescription(description.getText().toString());
                     goal.setGoalTotalAmount(Integer.parseInt(amount.getText().toString()));
-                    goal.setGoalCurrentAmount(0);
                     goal.setGoalName(goalName.getText().toString());
                     goal.setCategoryID(categoryID);
-                    //Get random key for goalID
-                    String goalID = databaseReference.push().getKey();
-                    goal.setGoalID(goalID);
-                    //Add the goal with the goalID being the ID by child
-                    databaseReference.child(goal.getGoalID()).setValue(goal);
-                    Toast.makeText(AddGoalActivity.this, "Goal data added to database ", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(AddGoalActivity.this, MainActivity.class);
-                    startActivity(intent);
+
+                    int selectedId = radioGroup.getCheckedRadioButtonId();
+                        RadioButton radioButton
+                                = (RadioButton)radioGroup
+                                .findViewById(selectedId);
+
+                        // Get the value of selected item
+                    if(radioButton.getText().toString().equals("Budget Goal")){
+                            goal.setGoalType("Budget");
+                            goal.setGoalCurrentAmount(0);
+
+                        Log.d("Goal","Size is " + goal.getGoalCurrentAmount());
+                        //Get random key for goalID
+                        String goalID = databaseReference.push().getKey();
+                        goal.setGoalID(goalID);
+                        //Add the goal with the goalID being the ID by child
+                        databaseReference.child(goal.getGoalID()).setValue(goal);
+                        Toast.makeText(AddGoalActivity.this, "Goal data added to database ", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(AddGoalActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }else if (radioButton.getText().toString().equals("Items Goal")){
+                            goal.setGoalType("Item");
+                        ArrayList<Item> items = new ArrayList<Item>();
+
+                        referenceCategory.child(mAuth.getUid()).child(categoryID).child("Items").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                    Item item = dataSnapshot.getValue(Item.class);
+                                    items.add(item);
+
+                                }
+                                goal.setGoalCurrentAmount(items.size());
+
+                                Log.d("Goal","Size is " + goal.getGoalCurrentAmount());
+                                //Get random key for goalID
+                                String goalID = databaseReference.push().getKey();
+                                goal.setGoalID(goalID);
+                                //Add the goal with the goalID being the ID by child
+                                databaseReference.child(goal.getGoalID()).setValue(goal);
+                                Toast.makeText(AddGoalActivity.this, "Goal data added to database ", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(AddGoalActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+
                 }else{
                     Toast.makeText(AddGoalActivity.this, "Please enter all variables on the screen", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                goalType = (RadioButton)group
+                        .findViewById(checkedId);
             }
         });
     }
@@ -112,7 +176,7 @@ public class AddGoalActivity extends AppCompatActivity {
     public void loadDataCategory(){
 
 
-        referenceCategory.addValueEventListener(new ValueEventListener() {
+        referenceCategory.child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listCollection.clear();
@@ -129,5 +193,7 @@ public class AddGoalActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }

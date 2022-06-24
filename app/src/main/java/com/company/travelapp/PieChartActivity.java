@@ -81,58 +81,7 @@ public class PieChartActivity extends AppCompatActivity {
 
     }
 
-    public void loadData(){
 
-
-        mAuth.getCurrentUser();
-        String userID = mAuth.getUid();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories").child(userID);
-        //Query query = databaseReference.orderByChild("userID").equalTo(userID);
-        //database to read data
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //clear the list
-                //categories.clear();
-                //For each dataSnapshot  in the children of categories(AndroidJSon, 2017).
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    //Get the category and add it to a list
-                    Collection category = dataSnapshot.getValue(Collection.class);
-
-                    databaseReference.child(category.getCategoryID()).child("Items").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-
-                                Item item =  dataSnapshot.getValue(Item.class);
-                                items.add(item);
-                            }
-                            Log.d("ItemSize","Size of items are " + items.size());
-                            //category.setItems(items);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-
-                    categories.add(category);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-    }
 
     private void loadItems() {
         for(Collection category: categories){

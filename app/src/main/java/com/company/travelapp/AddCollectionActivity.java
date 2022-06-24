@@ -219,7 +219,7 @@ public class AddCollectionActivity extends AppCompatActivity {
                          category.setItems(null);
                          //Set value of child to category(GeeksforGeeks, 2020)
                          databaseReference.child(userID).child(categoryID).setValue(category);
-                        Toast.makeText(AddCollectionActivity.this,"Upload of image and data successful",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddCollectionActivity.this,"Upload of image and data of category successful",Toast.LENGTH_LONG).show();
 
                     }
                 });
