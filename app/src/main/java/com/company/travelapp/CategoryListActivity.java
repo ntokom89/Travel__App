@@ -60,6 +60,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
 
         recyclerView.setAdapter(adapter);
 
+        //A itemTouchHelper that when swiped will delete the category selected
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -71,6 +72,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
 
                 Collection category = adapter.getPosition(viewHolder.getAdapterPosition());
                 Query query = databaseReference.orderByChild("categoryID").equalTo(category.getCategoryID());
+                //Run the query to delete and remove the value
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,7 +105,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
         }).attachToRecyclerView(recyclerView);
 
 
-
+       //A button when clicked takes you to add category page
         buttonAddCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +116,7 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
             }
         });
 
+        //A button that when clicked will take you to the piechart activity with parcelable ArrayList of categories and items (itseranga, 2021)
         buttonGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,12 +149,14 @@ public class CategoryListActivity extends AppCompatActivity implements RecyclerM
                     Collection category = dataSnapshot.getValue(Collection.class);
 
 
+                    //database to read the data for Items
                     databaseReference.child(category.getCategoryID()).child("Items").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
+                                //Get the Item and add it to a list
                                 Item item =  dataSnapshot.getValue(Item.class);
                                 items.add(item);
                             }

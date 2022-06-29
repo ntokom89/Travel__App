@@ -93,6 +93,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
         recyclerView.setLayoutManager(horizontalLayoutManager);
         loadData();
 
+        //A button for user to enter the updated amount from the dialog (Kikani, 2018)
         buttonTopUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,13 +139,14 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
             }
         });
 
+        //A button to go back to the previous activity
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
+          //A button to go  to the addGoal activity
         buttonSetGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +155,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
             }
         });
 
+        //A button to delete the goal that was selected from recyclerview
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,6 +269,7 @@ public class GoalActivity extends AppCompatActivity implements RecyclerMainList.
 
     }
 
+    //method to show the notification of the goal
     void showNotification(String title, String message) {
 
 

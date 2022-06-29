@@ -34,34 +34,45 @@ Part 2
 
 REFERENCES 
 
-•	AndroidJSon, 2017. Retrieve Uploaded Images from Firebase Storage Show in RecyclerView, 25 June 2017. [Online]. 
+•	AndroidJSon, 2017. Retrieve Uploaded Images from Firebase Storage Show in RecyclerView, 25 June 2017 . [Online]. 
 Available at: https://androidjson.com/retrieve-stored-images-firebase-storage/
 [Accessed 21 May 2022].
 •	Codexpedia, 2022. Defining item click listener for RecyclerView in Android, 2022. [Online]. 
 Available at: https://www.codexpedia.com/android/defining-item-click-listener-for-recyclerview-in-android/
 [Accessed 20 May 2022].
-•	CodingSTUFF, Upload Image To Firebase Storage And add URL to Realtime Database 2021 (Image Uploader Part1). 2020. YouTube video, added by CodingSTUFF. [Online]. 
+•	Upload Image To Firebase Storage And add URL to Realtime Database 2021 (Image Uploader Part1). 2020. YouTube video, added by CodingSTUFF. [Online]. 
 Available at: https://www.youtube.com/watch?v=9-oa4OS7lUQ
 [Accessed 17 May 2022].
-•	GeeksforGeeks, 2020. How to Save Data to the Firebase Realtime Database in Android?, 31 December 2020. [Online]. 
-Available at: https://www.geeksforgeeks.org/how-to-save-data-to-the-firebase-realtime-database-in-android/
-[Accessed 22 May 2022].
-•	GeeksforGeeks, 2021. Android: How to Upload an image on Firebase storage?, 21 December 2021. [Online]. 
+•	dixit, s., 2019. How to make a user sign out in Firebase? (Java 8.0). [Source Code]. 
+Available at: https://stackoverflow.com/questions/42571618/how-to-make-a-user-sign-out-in-firebase
+[Accessed 24 June 2022].
+•	GeeksforGeeks, 2020. How to add a Pie Chart into an Android Application, 12 June 2020. [Online]. 
+Available at: https://www.geeksforgeeks.org/how-to-add-a-pie-chart-into-an-android-application/
+[Accessed 15 June 2022].
+•	GeeksforGeeks, 2021. Android: How to Upload an image on Firebase storage?, , 21 December 2021. [Online]. 
 Available at: https://www.geeksforgeeks.org/android-how-to-upload-an-image-on-firebase-storage/
 [Accessed 26 May 2022].
 •	Goel, C., 2020. Capture Image From Camera and Select Image From Gallery of Android Phone Using Android Studio, 17 February 2020. [Online]. 
 Available at: https://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
 [Accessed 26 May 2022].
+•	itseranga, 2021. Passing objects between activities in android. September 2021. [Online]. 
+Available at: https://coderwall.com/p/vfbing/passing-objects-between-activities-in-android
+[Accessed 10 June 2022].
+•	Kikani, K., 2018. Custom popup dialog with input field [closed] (Java 8.0). [Source	Code].  
+Available at: https://stackoverflow.com/questions/35861081/custom-popup-dialog-with-input-field
+[Accessed 10 June 2022].
 •	Show Images from Firebase in a RecyclerView - Firebase Cloud Storage. 2020. YouTube video, added by Philipp Lackner. [Online]. 
 Available at: https://www.youtube.com/watch?v=g04l2nH5M80
 [Accessed 19 May 2022].
-•	Mamo, A. 2017. Firebase query for single value update(Android API 29) [Soruce 	Code]. 
+•	Mamo, A., 2017. Firebase query for single value update(Android API 29) [Soruce 	Code].
 Available at: https://stackoverflow.com/questions/44044155/firebase-query-for-single-value-update
 [Accessed 21 May 2022].
 •	Alert Dialog Single Choice - Android Studio Tutorial. 2018. YouTube video, added by Atif Pervaiz. [Online]. 
 Available at: https://www.youtube.com/watch?v=Loj05QkHSSA
 [Accessed 28 May 2022].
-•	how to convert bitmap to uri in android studio | how to capture image from camera in android studio. 2022. YouTube video, added by Tech Projects. [Online].
+•	how to convert bitmap to uri in android studio | how to capture image from camera in android studio. 2022. YouTube video, added by Tech Projects. [Online]. 
 Available at: https://www.youtube.com/watch?v=XRdzAWIt8rw
 [Accessed 22 May 2022].
+
+
 

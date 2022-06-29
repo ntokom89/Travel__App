@@ -3,6 +3,7 @@ package com.company.travelapp.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+//(itseranga, 2021)
 public class Item implements Parcelable {
     private String itemId;
     private String categoryID;

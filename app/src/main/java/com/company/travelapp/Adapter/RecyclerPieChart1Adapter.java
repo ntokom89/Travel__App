@@ -14,7 +14,7 @@ import com.company.travelapp.Model.Item;
 import com.company.travelapp.R;
 
 import java.util.ArrayList;
-
+//Recycelerview adapter for the category list in the pie chart
 public class RecyclerPieChart1Adapter extends RecyclerView.Adapter<RecyclerPieChart1Adapter.MyViewHolder>{
 
     private Context mContext;

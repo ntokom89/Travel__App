@@ -34,6 +34,7 @@ import java.util.Random;
 
 public class PieChartActivity extends AppCompatActivity {
 
+    //Variables
     PieChart pieChart;
     ArrayList<Integer> colors;
     ArrayList<Collection> categories;
@@ -50,11 +51,10 @@ public class PieChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
-
+        //Declarations
         pieChart = findViewById(R.id.piechart);
         recyclerView1 = findViewById(R.id.recyclerViewPieChart1);
         recyclerView2 = findViewById(R.id.recyclerViewPieChart2);
-        //totalNumItems = 0.0;
         mAuth = FirebaseAuth.getInstance();
         Intent intent = getIntent();
         categories = new ArrayList<>();
@@ -63,8 +63,8 @@ public class PieChartActivity extends AppCompatActivity {
         items = new ArrayList<>();
         items = intent.getParcelableArrayListExtra("ItemList");
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Categories").child(mAuth.getUid());
+        //Implement methods
         loadItems();
-        //loadData();
         getAmountOfAllItems();
         loadRandomColors();
 
@@ -83,9 +83,12 @@ public class PieChartActivity extends AppCompatActivity {
 
 
 
+    //A method to load the number of items for each category
     private void loadItems() {
+        //for each category
         for(Collection category: categories){
             ArrayList<Item> itemstemp = new ArrayList<>();
+            //for each item check if the item's categoryID matches category's ID. If it is, then add item to Arraylist
             for(Item item : items){
                 if(item.getCategoryID().equals(category.getCategoryID())){
                     itemstemp.add(item);
@@ -98,6 +101,7 @@ public class PieChartActivity extends AppCompatActivity {
         Log.d("ItemSize","total number of items are " + totalNumItems);
     }
 
+    //A method to declare and assign adapters to each recyclerview
     private void populateRecyclerViews() {
 
         adapter = new RecyclerPieChart1Adapter(PieChartActivity.this, categories, colors);
@@ -107,11 +111,14 @@ public class PieChartActivity extends AppCompatActivity {
         recyclerView2.setAdapter(adapter2);
     }
 
+    //A method to set up the piechart  (GeeksforGeeks, 2020)
     private void setPieChart() {
 
+        // for loop for each category
         for(int i = 0; i <= categories.size()-1; i++) {
 
             ArrayList<Item> itemstemp = new ArrayList<>();
+            //get the category at position(i)
             Collection category = categories.get(i);
             for(Item item : items){
                 if(item.getCategoryID().equals(category.getCategoryID())){
@@ -119,11 +126,14 @@ public class PieChartActivity extends AppCompatActivity {
                 }
             }
             double size = itemstemp.size();
+            //get percentage of the items in a category of all the items
             double percentage = (size/totalNumItems)*100;
+            //Add a pie slice with name percentage and color(GeeksforGeeks, 2020)
             pieChart.addPieSlice(new PieModel(category.getCategoryName(), (float) percentage,colors.get(i)));
         }
     }
 
+    //Method to get total amount of all items
     private void getAmountOfAllItems() {
 
             Log.d("ItemSize","total number of items are " + Double.valueOf(items.size()));
@@ -131,11 +141,14 @@ public class PieChartActivity extends AppCompatActivity {
             Log.d("ItemSize","total number of items are " + totalNumItems);
     }
 
+    //A method to get and load random colors for each category
     private void loadRandomColors() {
 
         Random random = new Random();
         for(Collection category : categories) {
+            //get a random color
             int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+            //add to the colors arraylist
             colors.add(color);
 
         }

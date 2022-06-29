@@ -113,7 +113,7 @@ public class UploadImageActivity extends AppCompatActivity {
                 myAlertDialog.show();
             }
         });
-
+//A onClick method for the alertDialog that will show list of single choice items that will pop out(Pervaiz, 2018)
         itemTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,6 +209,7 @@ public class UploadImageActivity extends AppCompatActivity {
 
 
 
+        //A button to update the image of the category or the item associated with a category
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -264,6 +265,7 @@ public class UploadImageActivity extends AppCompatActivity {
 
     }
 
+    //To load a list of categories
     public void loadDataCategory(){
 
 
@@ -285,6 +287,7 @@ public class UploadImageActivity extends AppCompatActivity {
         });
     }
 
+    //A method to load the list of items for category selected
     public void loadDataItem(){
 
 
@@ -362,6 +365,7 @@ public class UploadImageActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    //Method to update the image of the item in the firebase database
     public void updateItemImageToFirebase(Uri uriImage){
 
        
@@ -405,6 +409,7 @@ public class UploadImageActivity extends AppCompatActivity {
 
     }
 
+    //A method to update the image of the category selected in Firebase
     public void updateCategoryImageToFirebase(Uri uriImage){
 
 

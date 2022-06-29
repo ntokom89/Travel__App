@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+//(itseranga, 2021)
 public class Collection implements Parcelable {
 
     private String categoryID;

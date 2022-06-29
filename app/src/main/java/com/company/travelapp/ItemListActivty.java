@@ -66,6 +66,7 @@ public class ItemListActivty extends AppCompatActivity {
             }
         });
 
+        //A itemTouchHelper for when a item is swiped, it will be deleted.
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -78,6 +79,7 @@ public class ItemListActivty extends AppCompatActivity {
                 Query queryGoal = referenceGoal.orderByChild("categoryID").equalTo(categoryID);
                 Item item = adapter.getPosition(viewHolder.getAdapterPosition());
                 Query query = databaseReference.orderByChild("nameItem").equalTo(item.getNameItem());
+                //Run a query to delete a item as well as decrement a current goal amount if goal type is items
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

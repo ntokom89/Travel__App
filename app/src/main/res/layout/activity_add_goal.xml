@@ -23,9 +23,10 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="419dp"
+                    android:layout_width="400dp"
                     android:layout_height="180dp"
                     android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/image_goal" />

@@ -16,7 +16,7 @@ import com.company.travelapp.R;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
+//Recycelerview adapter for the category list 2  in piechart activity
 public class RecyclerPieChart2Adapter extends RecyclerView.Adapter<RecyclerPieChart2Adapter.MyViewHolder>{
 
     private Context mContext;
@@ -42,8 +42,10 @@ public class RecyclerPieChart2Adapter extends RecyclerView.Adapter<RecyclerPieCh
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(mData.get(position).getCategoryName());
+        //Set a format to the type specified and round of any numbers
         DecimalFormat df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.CEILING);
+        //get percentage from total items
         double percentage = (mData.get(position).getItems().size()/total) *100;
         holder.number.setText(df.format(percentage) +"%");
     }

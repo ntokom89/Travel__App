@@ -88,8 +88,28 @@ public class AddCollectionActivity extends AppCompatActivity {
                      //Implement this method
                      addCollectionToFirebase(collectionName.getText().toString(),imageUri);
                      //Declare a new intent and start the activity with the intent.
-                     Intent intent = new Intent(AddCollectionActivity.this,MainActivity.class);
-                     startActivity(intent);
+                     AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(
+                             AddCollectionActivity.this);
+                     myAlertDialog.setTitle("Set Goal");
+                     myAlertDialog.setMessage("Dp you want to set a goal for this category?");
+
+                     myAlertDialog.setPositiveButton("Yes",
+                             new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface arg0, int arg1) {
+                                     Intent intent = new Intent(AddCollectionActivity.this,AddGoalActivity.class);
+                                     startActivity(intent);
+                                 }
+                             });
+
+                     myAlertDialog.setNegativeButton("No",
+                             new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface arg0, int arg1) {
+                                     Intent intent = new Intent(AddCollectionActivity.this,MainActivity.class);
+                                     startActivity(intent);
+                                 }
+
+                             });
+                     myAlertDialog.show();
                  }else{
                      Toast.makeText(AddCollectionActivity.this,"Please enter category name", Toast.LENGTH_LONG).show();
                  }
